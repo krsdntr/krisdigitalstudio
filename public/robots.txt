@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://krisdigital-studio.pages.dev/sitemap.xml
+Sitemap: https://krisdigitalstudio.pages.dev/sitemap.xml
