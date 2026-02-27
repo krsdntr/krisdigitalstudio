@@ -1,5 +1,8 @@
 
+"use client";
+
 import { ChevronDown, ChevronUp } from "lucide-react";
+
 import { useState } from "react";
 import { agencyConfig } from "../data/agencyConfig";
 

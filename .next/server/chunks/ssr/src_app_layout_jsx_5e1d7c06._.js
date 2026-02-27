@@ -1,0 +1,3 @@
+module.exports=[49575,a=>{"use strict";var b=a.i(7997),c=a.i(78396);let d={title:"KrisDigital Studio",description:"Bikin Bisnis Lebih Laris dengan Website Otomatis"};async function e({children:a}){let e=await (0,c.getSystemStyles)(),f={"--color-primary":e.primary_color?.value||"#2563EB","--color-dark":e.dark_mode_color?.value||"#0F172A"};return e.site_name&&(d.title=e.site_name.value),e.site_description&&(d.description=e.site_description.value),(0,b.jsx)("html",{lang:"id",children:(0,b.jsx)("body",{style:f,children:a})})}a.s(["default",()=>e,"metadata",0,d])}];
+
+//# sourceMappingURL=src_app_layout_jsx_5e1d7c06._.js.map
