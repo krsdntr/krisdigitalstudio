@@ -5,6 +5,8 @@ import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
+export const runtime = 'edge';
+
 export async function generateMetadata({ params }) {
     const { slug } = await params;
     const post = await getItemDetails(slug, process.env.NOTION_BLOG_DATABASE_ID);
