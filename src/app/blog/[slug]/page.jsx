@@ -27,7 +27,7 @@ export const revalidate = 60;
 export default async function BlogPost({ params }) {
     const { slug } = await params;
     const allPosts = await getBlogPosts();
-    const postMeta = allPosts.find(p => p.slug === slug);
+    const postMeta = allPosts.items.find(p => p.slug === slug);
     const postContent = await getItemDetails(slug, process.env.NOTION_BLOG_DATABASE_ID);
 
     if (!postMeta || !postContent) {

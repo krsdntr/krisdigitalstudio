@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default async function Articles({ blockData }) {
     const allPosts = await getBlogPosts();
-    const posts = allPosts.slice(0, 3);
+    const posts = allPosts.items.slice(0, 3);
 
     const title = blockData?.title || "Artikel & Wawasan";
     const subtitle = blockData?.subtitle || "Temukan tips, trik, dan studi kasus terbaru seputar bisnis digital kami.";

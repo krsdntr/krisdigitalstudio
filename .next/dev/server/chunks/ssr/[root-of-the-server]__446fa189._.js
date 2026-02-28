@@ -28,19 +28,23 @@ function ProjectsClient({ initialProjects }) {
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [selectedIndustry, setSelectedIndustry] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("All");
     const [sortBy, setSortBy] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("newest");
+    const [items, setItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialProjects.items || []);
+    const [nextCursor, setNextCursor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialProjects.nextCursor);
+    const [hasMore, setHasMore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialProjects.hasMore);
+    const [isLoadingMore, setIsLoadingMore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // Extract unique industries for filter options
     const industries = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
-        const ind = new Set(initialProjects.map((p)=>p.industry).filter(Boolean));
+        const ind = new Set(items.map((p)=>p.industry).filter(Boolean));
         return [
             "All",
             ...Array.from(ind)
         ];
     }, [
-        initialProjects
+        items
     ]);
     const filteredAndSorted = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         let result = [
-            ...initialProjects
+            ...items
         ];
         // Search Filter
         if (searchQuery) {
@@ -64,11 +68,29 @@ function ProjectsClient({ initialProjects }) {
         });
         return result;
     }, [
-        initialProjects,
+        items,
         searchQuery,
         selectedIndustry,
         sortBy
     ]);
+    const handleLoadMore = async ()=>{
+        if (!hasMore || isLoadingMore) return;
+        setIsLoadingMore(true);
+        try {
+            const { fetchMoreProjects } = await __turbopack_context__.A("[project]/src/app/actions/notion.js [app-ssr] (ecmascript, async loader)");
+            const result = await fetchMoreProjects(nextCursor);
+            setItems((prev)=>[
+                    ...prev,
+                    ...result.items
+                ]);
+            setNextCursor(result.nextCursor);
+            setHasMore(result.hasMore);
+        } catch (error) {
+            console.error("Failed to load more projects:", error);
+        } finally{
+            setIsLoadingMore(false);
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -81,7 +103,7 @@ function ProjectsClient({ initialProjects }) {
                                 className: "absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                lineNumber: 57,
+                                lineNumber: 78,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -92,13 +114,13 @@ function ProjectsClient({ initialProjects }) {
                                 onChange: (e)=>setSearchQuery(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                lineNumber: 58,
+                                lineNumber: 79,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                        lineNumber: 56,
+                        lineNumber: 77,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -111,7 +133,7 @@ function ProjectsClient({ initialProjects }) {
                                         className: "text-gray-400 w-4 h-4 hidden md:block"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 70,
+                                        lineNumber: 91,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -123,18 +145,18 @@ function ProjectsClient({ initialProjects }) {
                                                 children: ind === "All" ? "Semua Kategori" : ind
                                             }, ind, false, {
                                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                lineNumber: 77,
+                                                lineNumber: 98,
                                                 columnNumber: 33
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 71,
+                                        lineNumber: 92,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                lineNumber: 69,
+                                lineNumber: 90,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -147,7 +169,7 @@ function ProjectsClient({ initialProjects }) {
                                         children: "Terbaru"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 88,
+                                        lineNumber: 109,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -155,7 +177,7 @@ function ProjectsClient({ initialProjects }) {
                                         children: "Terlama"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 89,
+                                        lineNumber: 110,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -163,25 +185,25 @@ function ProjectsClient({ initialProjects }) {
                                         children: "A - Z"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 90,
+                                        lineNumber: 111,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                lineNumber: 83,
+                                lineNumber: 104,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                        lineNumber: 67,
+                        lineNumber: 88,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                lineNumber: 53,
+                lineNumber: 74,
                 columnNumber: 13
             }, this),
             filteredAndSorted.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -191,12 +213,12 @@ function ProjectsClient({ initialProjects }) {
                     children: "Tidak ada project yang ditemukan."
                 }, void 0, false, {
                     fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                    lineNumber: 98,
+                    lineNumber: 119,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                lineNumber: 97,
+                lineNumber: 118,
                 columnNumber: 17
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
@@ -216,7 +238,7 @@ function ProjectsClient({ initialProjects }) {
                                                 className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                lineNumber: 107,
+                                                lineNumber: 128,
                                                 columnNumber: 41
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-full h-full flex items-center justify-center bg-slate-50",
@@ -224,25 +246,25 @@ function ProjectsClient({ initialProjects }) {
                                                     className: "h-10 w-10 text-slate-300"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                    lineNumber: 114,
+                                                    lineNumber: 135,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                lineNumber: 113,
+                                                lineNumber: 134,
                                                 columnNumber: 41
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                lineNumber: 117,
+                                                lineNumber: 138,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 105,
+                                        lineNumber: 126,
                                         columnNumber: 33
                                     }, this),
                                     project.industry && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -252,18 +274,18 @@ function ProjectsClient({ initialProjects }) {
                                             children: project.industry
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                            lineNumber: 121,
+                                            lineNumber: 142,
                                             columnNumber: 41
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 120,
+                                        lineNumber: 141,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                lineNumber: 104,
+                                lineNumber: 125,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -277,12 +299,12 @@ function ProjectsClient({ initialProjects }) {
                                             children: project.title
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                            lineNumber: 129,
+                                            lineNumber: 150,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 128,
+                                        lineNumber: 149,
                                         columnNumber: 33
                                     }, this),
                                     project.techStack && project.techStack.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -292,12 +314,12 @@ function ProjectsClient({ initialProjects }) {
                                                 children: tech
                                             }, tech, false, {
                                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                lineNumber: 136,
+                                                lineNumber: 157,
                                                 columnNumber: 45
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 134,
+                                        lineNumber: 155,
                                         columnNumber: 37
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -305,7 +327,7 @@ function ProjectsClient({ initialProjects }) {
                                         children: project.description
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 142,
+                                        lineNumber: 163,
                                         columnNumber: 33
                                     }, this),
                                     project.liveUrl && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -319,36 +341,64 @@ function ProjectsClient({ initialProjects }) {
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                                lineNumber: 152,
+                                                lineNumber: 173,
                                                 columnNumber: 54
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                        lineNumber: 146,
+                                        lineNumber: 167,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                                lineNumber: 127,
+                                lineNumber: 148,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, project.id, true, {
                         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                        lineNumber: 103,
+                        lineNumber: 124,
                         columnNumber: 25
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-                lineNumber: 101,
+                lineNumber: 122,
+                columnNumber: 17
+            }, this),
+            hasMore && filteredAndSorted.length > 0 && searchQuery === "" && selectedIndustry === "All" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-12 text-center",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: handleLoadMore,
+                    disabled: isLoadingMore,
+                    className: "px-6 py-3 bg-white text-slate-700 border border-slate-200 hover:border-blue-500 hover:text-blue-600 rounded-xl font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2",
+                    children: isLoadingMore ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-5 h-5 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/projects/ProjectsClient.jsx",
+                                lineNumber: 192,
+                                columnNumber: 33
+                            }, this),
+                            "Memuat..."
+                        ]
+                    }, void 0, true) : 'Muat Lebih Banyak'
+                }, void 0, false, {
+                    fileName: "[project]/src/app/projects/ProjectsClient.jsx",
+                    lineNumber: 185,
+                    columnNumber: 21
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/projects/ProjectsClient.jsx",
+                lineNumber: 184,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/projects/ProjectsClient.jsx",
-        lineNumber: 51,
+        lineNumber: 72,
         columnNumber: 9
     }, this);
 }

@@ -66,21 +66,17 @@ self.__SERVER_FILES_MANIFEST={
       "remotePatterns": [
         {
           "protocol": "https",
-          "hostname": "www.notion.so"
+          "hostname": "**"
         },
         {
-          "protocol": "https",
-          "hostname": "s3.us-west-2.amazonaws.com"
-        },
-        {
-          "protocol": "https",
-          "hostname": "prod-files-secure.s3.us-west-2.amazonaws.com"
+          "protocol": "http",
+          "hostname": "**"
         }
       ],
       "qualities": [
         75
       ],
-      "unoptimized": false
+      "unoptimized": true
     },
     "devIndicators": {
       "position": "bottom-left"

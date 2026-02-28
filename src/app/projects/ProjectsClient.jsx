@@ -9,14 +9,19 @@ export default function ProjectsClient({ initialProjects }) {
     const [selectedIndustry, setSelectedIndustry] = useState("All");
     const [sortBy, setSortBy] = useState("newest");
 
+    const [items, setItems] = useState(initialProjects.items || []);
+    const [nextCursor, setNextCursor] = useState(initialProjects.nextCursor);
+    const [hasMore, setHasMore] = useState(initialProjects.hasMore);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+
     // Extract unique industries for filter options
     const industries = useMemo(() => {
-        const ind = new Set(initialProjects.map(p => p.industry).filter(Boolean));
+        const ind = new Set(items.map(p => p.industry).filter(Boolean));
         return ["All", ...Array.from(ind)];
-    }, [initialProjects]);
+    }, [items]);
 
     const filteredAndSorted = useMemo(() => {
-        let result = [...initialProjects];
+        let result = [...items];
 
         // Search Filter
         if (searchQuery) {
@@ -45,7 +50,23 @@ export default function ProjectsClient({ initialProjects }) {
         });
 
         return result;
-    }, [initialProjects, searchQuery, selectedIndustry, sortBy]);
+    }, [items, searchQuery, selectedIndustry, sortBy]);
+
+    const handleLoadMore = async () => {
+        if (!hasMore || isLoadingMore) return;
+        setIsLoadingMore(true);
+        try {
+            const { fetchMoreProjects } = await import('../actions/notion');
+            const result = await fetchMoreProjects(nextCursor);
+            setItems(prev => [...prev, ...result.items]);
+            setNextCursor(result.nextCursor);
+            setHasMore(result.hasMore);
+        } catch (error) {
+            console.error("Failed to load more projects:", error);
+        } finally {
+            setIsLoadingMore(false);
+        }
+    };
 
     return (
         <div>
@@ -155,6 +176,26 @@ export default function ProjectsClient({ initialProjects }) {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* Load More Button */}
+            {hasMore && filteredAndSorted.length > 0 && searchQuery === "" && selectedIndustry === "All" && (
+                <div className="mt-12 text-center">
+                    <button
+                        onClick={handleLoadMore}
+                        disabled={isLoadingMore}
+                        className="px-6 py-3 bg-white text-slate-700 border border-slate-200 hover:border-blue-500 hover:text-blue-600 rounded-xl font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                    >
+                        {isLoadingMore ? (
+                            <>
+                                <div className="w-5 h-5 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin"></div>
+                                Memuat...
+                            </>
+                        ) : (
+                            'Muat Lebih Banyak'
+                        )}
+                    </button>
                 </div>
             )}
         </div>

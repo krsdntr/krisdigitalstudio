@@ -596,10 +596,15 @@ const getLandingBlocks = (0, __TURBOPACK__imported__module__$5b$project$5d2f$nod
         return [];
     }
 });
-const getPublishedItems = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$react$2e$react$2d$server$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (databaseId, customMapper = null)=>{
-    if (!databaseId) return [];
+const getPublishedItems = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$react$2e$react$2d$server$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (databaseId, customMapper = null, options = {})=>{
+    if (!databaseId) return {
+        items: [],
+        nextCursor: null,
+        hasMore: false
+    };
+    const { startCursor = undefined, pageSize = 100 } = options;
     try {
-        const response = await notion.databases.query({
+        const queryArgs = {
             database_id: databaseId,
             filter: {
                 property: 'Status',
@@ -612,9 +617,14 @@ const getPublishedItems = (0, __TURBOPACK__imported__module__$5b$project$5d2f$no
                     timestamp: 'created_time',
                     direction: 'descending'
                 }
-            ]
-        });
-        return response.results.map((item)=>{
+            ],
+            page_size: pageSize
+        };
+        if (startCursor) {
+            queryArgs.start_cursor = startCursor;
+        }
+        const response = await notion.databases.query(queryArgs);
+        const items = response.results.map((item)=>{
             // Base mapper
             const baseObj = {
                 id: item.id,
@@ -628,30 +638,39 @@ const getPublishedItems = (0, __TURBOPACK__imported__module__$5b$project$5d2f$no
                 ...customMapper(item)
             } : baseObj;
         });
+        return {
+            items,
+            nextCursor: response.next_cursor,
+            hasMore: response.has_more
+        };
     } catch (error) {
         console.error(`Error fetching from database ${databaseId}:`, error);
-        return [];
+        return {
+            items: [],
+            nextCursor: null,
+            hasMore: false
+        };
     }
 });
-const getBlogPosts = async ()=>{
+const getBlogPosts = async (options = {})=>{
     return getPublishedItems(process.env.NOTION_BLOG_DATABASE_ID, (item)=>({
             date: getDateStr(item.properties['Published Date']),
             category: getSelectName(item.properties.Category),
             tags: getMultiSelectNames(item.properties.Tags),
             excerpt: getPlainText(item.properties.Excerpt),
             featured: getCheckbox(item.properties.Featured)
-        }));
+        }), options);
 };
-const getProjects = async ()=>{
+const getProjects = async (options = {})=>{
     return getPublishedItems(process.env.NOTION_PROJECT_DATABASE_ID, (item)=>({
             date: getDateStr(item.properties['Completion Date']),
             industry: getSelectName(item.properties.Industry),
             techStack: getMultiSelectNames(item.properties['Tech Stack']),
             liveUrl: getUrl(item.properties['Live URL']),
             description: getPlainText(item.properties['Short Description'])
-        }));
+        }), options);
 };
-const getDigitalProducts = async ()=>{
+const getDigitalProducts = async (options = {})=>{
     return getPublishedItems(process.env.NOTION_PRODUCT_DATABASE_ID, (item)=>({
             price: getNumber(item.properties.Price),
             discountPrice: getNumber(item.properties['Discount Price']),
@@ -660,7 +679,7 @@ const getDigitalProducts = async ()=>{
             features: getMultiSelectNames(item.properties.Features),
             checkoutUrl: getUrl(item.properties['Checkout URL']),
             isFreebie: getCheckbox(item.properties['Is Freebie?'])
-        }));
+        }), options);
 };
 const getItemDetails = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$react$2e$react$2d$server$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(async (slug, databaseId)=>{
     if (!databaseId) return null;
@@ -1189,7 +1208,7 @@ async function ProjectPost({ params }) {
     const { slug } = await params;
     // Fetch generic markup item + map metadata like we do for blog/products
     const allProjects = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["getProjects"])();
-    const projectMeta = allProjects.find((p)=>p.slug === slug);
+    const projectMeta = allProjects.items.find((p)=>p.slug === slug);
     const projectContent = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["getItemDetails"])(slug, process.env.NOTION_PROJECT_DATABASE_ID);
     if (!projectMeta || !projectContent) {
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();

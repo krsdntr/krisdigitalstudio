@@ -27,7 +27,7 @@ export default async function ProductPost({ params }) {
     // We need to fetch from the generic item details and also get specific fields mapped in getDigitalProducts
     // Ideally we refactor `getItemDetails` to take the mapper, but for now we look it up in the list
     const allProducts = await getDigitalProducts();
-    const productMeta = allProducts.find(p => p.slug === slug);
+    const productMeta = allProducts.items.find(p => p.slug === slug);
     const productContent = await getItemDetails(slug, process.env.NOTION_PRODUCT_DATABASE_ID);
     const styles = await getSystemStyles();
 

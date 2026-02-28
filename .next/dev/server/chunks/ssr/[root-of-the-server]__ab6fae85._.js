@@ -1153,7 +1153,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 async function Projects({ blockData }) {
     // Fetch top 3 projects from Notion
     const allProjects = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProjects"])();
-    const projects = allProjects.slice(0, 3);
+    const projects = allProjects.items.slice(0, 3);
     // Use Notion block data for text if available, else fallback
     const title = blockData?.title || "Project Terbaru";
     const subtitle = blockData?.subtitle || "Lihat bagaimana kami membantu bisnis lain berkembang secara digital.";
@@ -1430,7 +1430,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 ;
 async function Products({ blockData }) {
     const allProducts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getDigitalProducts"])();
-    const products = allProducts.slice(0, 3);
+    const products = allProducts.items.slice(0, 3);
     const title = blockData?.title || "Produk Digital Menarik";
     const subtitle = blockData?.subtitle || "Tingkatkan produktivitas Anda dengan aset digital siap pakai.";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1792,7 +1792,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 ;
 async function Articles({ blockData }) {
     const allPosts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getBlogPosts"])();
-    const posts = allPosts.slice(0, 3);
+    const posts = allPosts.items.slice(0, 3);
     const title = blockData?.title || "Artikel & Wawasan";
     const subtitle = blockData?.subtitle || "Temukan tips, trik, dan studi kasus terbaru seputar bisnis digital kami.";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2291,15 +2291,15 @@ async function Stats({ blockData }) {
     const stats = [
         {
             label: "Articles Published",
-            value: articles.length
+            value: articles.items?.length || 0
         },
         {
             label: "Projects Completed",
-            value: projects.length
+            value: projects.items?.length || 0
         },
         {
             label: "Digital Products",
-            value: products.length
+            value: products.items?.length || 0
         }
     ];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {

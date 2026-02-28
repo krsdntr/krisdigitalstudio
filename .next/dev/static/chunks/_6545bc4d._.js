@@ -24,10 +24,14 @@ function ArticlesClient({ initialPosts }) {
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [selectedCategory, setSelectedCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("All");
     const [sortBy, setSortBy] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("newest");
+    const [items, setItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialPosts.items || []);
+    const [nextCursor, setNextCursor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialPosts.nextCursor);
+    const [hasMore, setHasMore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialPosts.hasMore);
+    const [isLoadingMore, setIsLoadingMore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     // Extract unique categories for filter options
     const categories = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "ArticlesClient.useMemo[categories]": ()=>{
-            const cat = new Set(initialPosts.map({
+            const cat = new Set(items.map({
                 "ArticlesClient.useMemo[categories]": (p)=>p.category
             }["ArticlesClient.useMemo[categories]"]).filter(Boolean));
             return [
@@ -36,12 +40,12 @@ function ArticlesClient({ initialPosts }) {
             ];
         }
     }["ArticlesClient.useMemo[categories]"], [
-        initialPosts
+        items
     ]);
     const filteredAndSorted = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "ArticlesClient.useMemo[filteredAndSorted]": ()=>{
             let result = [
-                ...initialPosts
+                ...items
             ];
             // Search Filter
             if (searchQuery) {
@@ -72,11 +76,29 @@ function ArticlesClient({ initialPosts }) {
             return result;
         }
     }["ArticlesClient.useMemo[filteredAndSorted]"], [
-        initialPosts,
+        items,
         searchQuery,
         selectedCategory,
         sortBy
     ]);
+    const handleLoadMore = async ()=>{
+        if (!hasMore || isLoadingMore) return;
+        setIsLoadingMore(true);
+        try {
+            const { fetchMorePosts } = await __turbopack_context__.A("[project]/src/app/actions/notion.js [app-client] (ecmascript, async loader)");
+            const result = await fetchMorePosts(nextCursor);
+            setItems((prev)=>[
+                    ...prev,
+                    ...result.items
+                ]);
+            setNextCursor(result.nextCursor);
+            setHasMore(result.hasMore);
+        } catch (error) {
+            console.error("Failed to load more posts:", error);
+        } finally{
+            setIsLoadingMore(false);
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -89,7 +111,7 @@ function ArticlesClient({ initialPosts }) {
                                 className: "absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                lineNumber: 57,
+                                lineNumber: 78,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -100,13 +122,13 @@ function ArticlesClient({ initialPosts }) {
                                 onChange: (e)=>setSearchQuery(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                lineNumber: 58,
+                                lineNumber: 79,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                        lineNumber: 56,
+                        lineNumber: 77,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -119,7 +141,7 @@ function ArticlesClient({ initialPosts }) {
                                         className: "text-gray-400 w-4 h-4 hidden md:block"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 70,
+                                        lineNumber: 91,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -131,18 +153,18 @@ function ArticlesClient({ initialPosts }) {
                                                 children: cat === "All" ? "Semua Kategori" : cat
                                             }, cat, false, {
                                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                                lineNumber: 77,
+                                                lineNumber: 98,
                                                 columnNumber: 33
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 71,
+                                        lineNumber: 92,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                lineNumber: 69,
+                                lineNumber: 90,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -155,7 +177,7 @@ function ArticlesClient({ initialPosts }) {
                                         children: "Terbaru"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 88,
+                                        lineNumber: 109,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -163,7 +185,7 @@ function ArticlesClient({ initialPosts }) {
                                         children: "Terlama"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 89,
+                                        lineNumber: 110,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -171,25 +193,25 @@ function ArticlesClient({ initialPosts }) {
                                         children: "A - Z"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 90,
+                                        lineNumber: 111,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                lineNumber: 83,
+                                lineNumber: 104,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                        lineNumber: 67,
+                        lineNumber: 88,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                lineNumber: 53,
+                lineNumber: 74,
                 columnNumber: 13
             }, this),
             filteredAndSorted.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -199,12 +221,12 @@ function ArticlesClient({ initialPosts }) {
                     children: "Tidak ada artikel yang ditemukan."
                 }, void 0, false, {
                     fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                    lineNumber: 98,
+                    lineNumber: 119,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                lineNumber: 97,
+                lineNumber: 118,
                 columnNumber: 17
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
@@ -224,7 +246,7 @@ function ArticlesClient({ initialPosts }) {
                                                 className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                                lineNumber: 108,
+                                                lineNumber: 129,
                                                 columnNumber: 41
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-full h-full flex items-center justify-center bg-slate-50",
@@ -232,25 +254,25 @@ function ArticlesClient({ initialPosts }) {
                                                     className: "h-10 w-10 text-slate-300"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 136,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                                lineNumber: 114,
+                                                lineNumber: 135,
                                                 columnNumber: 41
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                                lineNumber: 118,
+                                                lineNumber: 139,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 106,
+                                        lineNumber: 127,
                                         columnNumber: 33
                                     }, this),
                                     post.category && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -260,18 +282,18 @@ function ArticlesClient({ initialPosts }) {
                                             children: post.category
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                            lineNumber: 122,
+                                            lineNumber: 143,
                                             columnNumber: 41
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 121,
+                                        lineNumber: 142,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                lineNumber: 105,
+                                lineNumber: 126,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -287,12 +309,12 @@ function ArticlesClient({ initialPosts }) {
                                             }) : ''
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                            lineNumber: 131,
+                                            lineNumber: 152,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 130,
+                                        lineNumber: 151,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -303,12 +325,12 @@ function ArticlesClient({ initialPosts }) {
                                             children: post.title
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                            lineNumber: 134,
+                                            lineNumber: 155,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 133,
+                                        lineNumber: 154,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -316,7 +338,7 @@ function ArticlesClient({ initialPosts }) {
                                         children: post.excerpt
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 138,
+                                        lineNumber: 159,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -330,45 +352,73 @@ function ArticlesClient({ initialPosts }) {
                                                     className: "h-4 w-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                                    lineNumber: 147,
+                                                    lineNumber: 168,
                                                     columnNumber: 59
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                            lineNumber: 143,
+                                            lineNumber: 164,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                        lineNumber: 142,
+                                        lineNumber: 163,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                                lineNumber: 129,
+                                lineNumber: 150,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, post.id, true, {
                         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                        lineNumber: 103,
+                        lineNumber: 124,
                         columnNumber: 25
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-                lineNumber: 101,
+                lineNumber: 122,
+                columnNumber: 17
+            }, this),
+            hasMore && filteredAndSorted.length > 0 && searchQuery === "" && selectedCategory === "All" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-12 text-center",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: handleLoadMore,
+                    disabled: isLoadingMore,
+                    className: "px-6 py-3 bg-white text-slate-700 border border-slate-200 hover:border-blue-500 hover:text-blue-600 rounded-xl font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2",
+                    children: isLoadingMore ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-5 h-5 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/blog/ArticlesClient.jsx",
+                                lineNumber: 187,
+                                columnNumber: 33
+                            }, this),
+                            "Memuat..."
+                        ]
+                    }, void 0, true) : 'Muat Lebih Banyak'
+                }, void 0, false, {
+                    fileName: "[project]/src/app/blog/ArticlesClient.jsx",
+                    lineNumber: 180,
+                    columnNumber: 21
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/blog/ArticlesClient.jsx",
+                lineNumber: 179,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/blog/ArticlesClient.jsx",
-        lineNumber: 51,
+        lineNumber: 72,
         columnNumber: 9
     }, this);
 }
-_s(ArticlesClient, "UFwFjr8jJ/He1m4tT8mvlfg6veE=");
+_s(ArticlesClient, "SbbKEN9dnTuufZYQA/dqtmPdIFs=");
 _c = ArticlesClient;
 var _c;
 __turbopack_context__.k.register(_c, "ArticlesClient");

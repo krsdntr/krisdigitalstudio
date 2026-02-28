@@ -102,10 +102,13 @@ export const getLandingBlocks = cache(async () => {
 });
 
 // 3/4/5. Generic Fetch Content Items (Blog, Project, Products)
-export const getPublishedItems = cache(async (databaseId, customMapper = null) => {
-    if (!databaseId) return [];
+export const getPublishedItems = cache(async (databaseId, customMapper = null, options = {}) => {
+    if (!databaseId) return { items: [], nextCursor: null, hasMore: false };
+
+    const { startCursor = undefined, pageSize = 100 } = options;
+
     try {
-        const response = await notion.databases.query({
+        const queryArgs = {
             database_id: databaseId,
             filter: {
                 property: 'Status',
@@ -119,9 +122,16 @@ export const getPublishedItems = cache(async (databaseId, customMapper = null) =
                     direction: 'descending',
                 },
             ],
-        });
+            page_size: pageSize,
+        };
 
-        return response.results.map((item) => {
+        if (startCursor) {
+            queryArgs.start_cursor = startCursor;
+        }
+
+        const response = await notion.databases.query(queryArgs);
+
+        const items = response.results.map((item) => {
             // Base mapper
             const baseObj = {
                 id: item.id,
@@ -133,34 +143,40 @@ export const getPublishedItems = cache(async (databaseId, customMapper = null) =
             // Apply custom mapping if provided, otherwise return base
             return customMapper ? { ...baseObj, ...customMapper(item) } : baseObj;
         });
+
+        return {
+            items,
+            nextCursor: response.next_cursor,
+            hasMore: response.has_more
+        };
     } catch (error) {
         console.error(`Error fetching from database ${databaseId}:`, error);
-        return [];
+        return { items: [], nextCursor: null, hasMore: false };
     }
 });
 
 // Specific Mappers for the 3 Content Types
-export const getBlogPosts = async () => {
+export const getBlogPosts = async (options = {}) => {
     return getPublishedItems(process.env.NOTION_BLOG_DATABASE_ID, (item) => ({
         date: getDateStr(item.properties['Published Date']),
         category: getSelectName(item.properties.Category),
         tags: getMultiSelectNames(item.properties.Tags),
         excerpt: getPlainText(item.properties.Excerpt),
         featured: getCheckbox(item.properties.Featured),
-    }));
+    }), options);
 };
 
-export const getProjects = async () => {
+export const getProjects = async (options = {}) => {
     return getPublishedItems(process.env.NOTION_PROJECT_DATABASE_ID, (item) => ({
         date: getDateStr(item.properties['Completion Date']),
         industry: getSelectName(item.properties.Industry),
         techStack: getMultiSelectNames(item.properties['Tech Stack']),
         liveUrl: getUrl(item.properties['Live URL']),
         description: getPlainText(item.properties['Short Description']),
-    }));
+    }), options);
 };
 
-export const getDigitalProducts = async () => {
+export const getDigitalProducts = async (options = {}) => {
     return getPublishedItems(process.env.NOTION_PRODUCT_DATABASE_ID, (item) => ({
         price: getNumber(item.properties.Price),
         discountPrice: getNumber(item.properties['Discount Price']),
@@ -169,7 +185,7 @@ export const getDigitalProducts = async () => {
         features: getMultiSelectNames(item.properties.Features),
         checkoutUrl: getUrl(item.properties['Checkout URL']),
         isFreebie: getCheckbox(item.properties['Is Freebie?']),
-    }));
+    }), options);
 };
 
 // Generic Fetch Single Item Details (for dynamic routes)

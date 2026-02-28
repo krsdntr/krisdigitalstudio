@@ -16,15 +16,15 @@ export default async function Stats({ blockData }) {
     const stats = [
         {
             label: "Articles Published",
-            value: articles.length,
+            value: articles.items?.length || 0,
         },
         {
             label: "Projects Completed",
-            value: projects.length,
+            value: projects.items?.length || 0,
         },
         {
             label: "Digital Products",
-            value: products.length,
+            value: products.items?.length || 0,
         }
     ];
 

@@ -9,14 +9,19 @@ export default function ArticlesClient({ initialPosts }) {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("newest");
 
+    const [items, setItems] = useState(initialPosts.items || []);
+    const [nextCursor, setNextCursor] = useState(initialPosts.nextCursor);
+    const [hasMore, setHasMore] = useState(initialPosts.hasMore);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+
     // Extract unique categories for filter options
     const categories = useMemo(() => {
-        const cat = new Set(initialPosts.map(p => p.category).filter(Boolean));
+        const cat = new Set(items.map(p => p.category).filter(Boolean));
         return ["All", ...Array.from(cat)];
-    }, [initialPosts]);
+    }, [items]);
 
     const filteredAndSorted = useMemo(() => {
-        let result = [...initialPosts];
+        let result = [...items];
 
         // Search Filter
         if (searchQuery) {
@@ -45,7 +50,23 @@ export default function ArticlesClient({ initialPosts }) {
         });
 
         return result;
-    }, [initialPosts, searchQuery, selectedCategory, sortBy]);
+    }, [items, searchQuery, selectedCategory, sortBy]);
+
+    const handleLoadMore = async () => {
+        if (!hasMore || isLoadingMore) return;
+        setIsLoadingMore(true);
+        try {
+            const { fetchMorePosts } = await import('../actions/notion');
+            const result = await fetchMorePosts(nextCursor);
+            setItems(prev => [...prev, ...result.items]);
+            setNextCursor(result.nextCursor);
+            setHasMore(result.hasMore);
+        } catch (error) {
+            console.error("Failed to load more posts:", error);
+        } finally {
+            setIsLoadingMore(false);
+        }
+    };
 
     return (
         <div>
@@ -150,6 +171,26 @@ export default function ArticlesClient({ initialPosts }) {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* Load More Button */}
+            {hasMore && filteredAndSorted.length > 0 && searchQuery === "" && selectedCategory === "All" && (
+                <div className="mt-12 text-center">
+                    <button
+                        onClick={handleLoadMore}
+                        disabled={isLoadingMore}
+                        className="px-6 py-3 bg-white text-slate-700 border border-slate-200 hover:border-blue-500 hover:text-blue-600 rounded-xl font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                    >
+                        {isLoadingMore ? (
+                            <>
+                                <div className="w-5 h-5 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin"></div>
+                                Memuat...
+                            </>
+                        ) : (
+                            'Muat Lebih Banyak'
+                        )}
+                    </button>
                 </div>
             )}
         </div>

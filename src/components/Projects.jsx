@@ -6,7 +6,7 @@ import Image from "next/image";
 export default async function Projects({ blockData }) {
     // Fetch top 3 projects from Notion
     const allProjects = await getProjects();
-    const projects = allProjects.slice(0, 3);
+    const projects = allProjects.items.slice(0, 3);
 
     // Use Notion block data for text if available, else fallback
     const title = blockData?.title || "Project Terbaru";

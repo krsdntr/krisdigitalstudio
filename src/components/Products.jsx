@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default async function Products({ blockData }) {
     const allProducts = await getDigitalProducts();
-    const products = allProducts.slice(0, 3);
+    const products = allProducts.items.slice(0, 3);
 
     const title = blockData?.title || "Produk Digital Menarik";
     const subtitle = blockData?.subtitle || "Tingkatkan produktivitas Anda dengan aset digital siap pakai.";

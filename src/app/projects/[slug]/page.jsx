@@ -27,7 +27,7 @@ export default async function ProjectPost({ params }) {
 
     // Fetch generic markup item + map metadata like we do for blog/products
     const allProjects = await getProjects();
-    const projectMeta = allProjects.find(p => p.slug === slug);
+    const projectMeta = allProjects.items.find(p => p.slug === slug);
     const projectContent = await getItemDetails(slug, process.env.NOTION_PROJECT_DATABASE_ID);
 
     if (!projectMeta || !projectContent) {
