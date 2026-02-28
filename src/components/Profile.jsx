@@ -1,7 +1,6 @@
 "use client";
 
 import { MapPin } from "lucide-react";
-import Image from "next/image";
 import { agencyConfig } from "../data/agencyConfig";
 
 export default function Profile({ blockData }) {
@@ -24,13 +23,11 @@ export default function Profile({ blockData }) {
                     <div className="w-full md:w-5/12 lg:w-4/12 flex-shrink-0 flex justify-center md:justify-end">
                         <div className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl pb-[120%] bg-slate-200">
                             {/* Uses pb-[120%] for a tall aspect ratio (5:6) */}
-                            <Image
+                            <img
                                 src={blockData?.media || profile.photoUrl}
                                 alt={profile.name}
-                                fill
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                className="object-cover object-top"
-                                priority
+                                className="absolute inset-0 w-full h-full object-cover object-top"
+                                loading="eager"
                             />
                         </div>
                     </div>

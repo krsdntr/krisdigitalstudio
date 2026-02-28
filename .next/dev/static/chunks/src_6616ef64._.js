@@ -1174,10 +1174,8 @@ __turbopack_context__.s([
     ()=>Profile
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/agencyConfig.js [app-client] (ecmascript)");
 "use client";
-;
 ;
 ;
 ;
@@ -1201,26 +1199,24 @@ function Profile({ blockData }) {
                         className: "w-full md:w-5/12 lg:w-4/12 flex-shrink-0 flex justify-center md:justify-end",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl pb-[120%] bg-slate-200",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: blockData?.media || profile.photoUrl,
                                 alt: profile.name,
-                                fill: true,
-                                sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
-                                className: "object-cover object-top",
-                                priority: true
+                                className: "absolute inset-0 w-full h-full object-cover object-top",
+                                loading: "eager"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 27,
+                                lineNumber: 26,
                                 columnNumber: 29
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/Profile.jsx",
-                            lineNumber: 25,
+                            lineNumber: 24,
                             columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Profile.jsx",
-                        lineNumber: 24,
+                        lineNumber: 23,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1231,7 +1227,7 @@ function Profile({ blockData }) {
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 40,
+                                lineNumber: 37,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1240,12 +1236,12 @@ function Profile({ blockData }) {
                                     children: bioText
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Profile.jsx",
-                                    lineNumber: 45,
+                                    lineNumber: 42,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 44,
+                                lineNumber: 41,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1255,34 +1251,34 @@ function Profile({ blockData }) {
                                         children: badge
                                     }, idx, false, {
                                         fileName: "[project]/src/components/Profile.jsx",
-                                        lineNumber: 51,
+                                        lineNumber: 48,
                                         columnNumber: 33
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 49,
+                                lineNumber: 46,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Profile.jsx",
-                        lineNumber: 39,
+                        lineNumber: 36,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Profile.jsx",
-                lineNumber: 21,
+                lineNumber: 20,
                 columnNumber: 17
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/Profile.jsx",
-            lineNumber: 20,
+            lineNumber: 19,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Profile.jsx",
-        lineNumber: 19,
+        lineNumber: 18,
         columnNumber: 9
     }, this);
 }
