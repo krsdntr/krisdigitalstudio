@@ -4,8 +4,8 @@
   "/blog/[slug]/page": "/blog/[slug]",
   "/blog/page": "/blog",
   "/page": "/",
-  "/portfolio/[slug]/page": "/portfolio/[slug]",
-  "/portfolio/page": "/portfolio",
   "/products/[slug]/page": "/products/[slug]",
-  "/products/page": "/products"
+  "/products/page": "/products",
+  "/projects/[slug]/page": "/projects/[slug]",
+  "/projects/page": "/projects"
 }

@@ -71,7 +71,13 @@ const getPlainText = (property)=>property?.rich_text?.[0]?.plain_text || propert
 const getSelectName = (property)=>property?.select?.name || '';
 const getMultiSelectNames = (property)=>property?.multi_select?.map((item)=>item.name) || [];
 const getDateStr = (property)=>property?.date?.start || '';
-const getUrl = (property)=>property?.url || '';
+const getUrl = (property)=>{
+    let url = property?.url || '';
+    if (url && !url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('mailto:') && !url.startsWith('tel:')) {
+        url = 'https://' + url;
+    }
+    return url;
+};
 const getNumber = (property)=>property?.number || 0;
 const getCheckbox = (property)=>property?.checkbox || false;
 const getCoverUrl = (item)=>item.cover?.external?.url || item.cover?.file?.url || '';
@@ -233,7 +239,7 @@ const getItemDetails = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_
             rawItem: item,
             id: item.id,
             title,
-            content: content.parent || content,
+            content: typeof content === 'string' ? content : content?.parent || '',
             cover: getCoverUrl(item) || getFileUrl(item.properties.Thumbnail),
             slug
         };
@@ -260,7 +266,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__
 ;
 ;
 const metadata = {
-    title: 'KrisDigital Studio',
+    title: 'Kris',
     description: 'Bikin Bisnis Lebih Laris dengan Website Otomatis'
 };
 const revalidate = 3600; // Cache system styles for 1 hour
@@ -278,8 +284,41 @@ async function RootLayout({ children }) {
         lang: "id",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
             style: cssVars,
-            children: children
-        }, void 0, false, {
+            className: "relative min-h-screen",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "fixed inset-0 overflow-hidden pointer-events-none z-0 bg-slate-50",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "absolute -top-[20%] -right-[10%] w-[70%] h-[70vh] bg-blue-300 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/layout.jsx",
+                            lineNumber: 29,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "absolute top-[20%] -left-[10%] w-[60%] h-[60vh] bg-indigo-300 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob animation-delay-2000"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/layout.jsx",
+                            lineNumber: 30,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/layout.jsx",
+                    lineNumber: 28,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
+                    className: "relative z-10",
+                    children: children
+                }, void 0, false, {
+                    fileName: "[project]/src/app/layout.jsx",
+                    lineNumber: 34,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
             fileName: "[project]/src/app/layout.jsx",
             lineNumber: 26,
             columnNumber: 7

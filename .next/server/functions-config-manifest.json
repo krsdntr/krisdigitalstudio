@@ -1,4 +1,8 @@
 {
   "version": 1,
-  "functions": {}
+  "functions": {
+    "/blog/[slug]": {},
+    "/products/[slug]": {},
+    "/projects/[slug]": {}
+  }
 }

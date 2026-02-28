@@ -11,7 +11,7 @@ const dbId = stylesDbMatch[1].trim();
 const defaultStyles = [
     { name: "Primary Color", key: "primary_color", value: "#2563EB", type: "color" },
     { name: "Dark Mode Color", key: "dark_mode_color", value: "#0F172A", type: "color" },
-    { name: "Site Name", key: "site_name", value: "KrisDigital Studio", type: "text" },
+    { name: "Site Name", key: "site_name", value: "Kris", type: "text" },
     { name: "Site Description", key: "site_description", value: "Bikin Bisnis Lebih Laris dengan Website Otomatis", type: "text" },
 ];
 

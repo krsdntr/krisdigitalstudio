@@ -1,5 +1,6 @@
-import { getItemDetails } from '../../../lib/notion';
+import { getItemDetails, getBlogPosts } from '../../../lib/notion';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }) {
     }
 
     return {
-        title: `${post.title} - KrisDigital Studio`,
+        title: `${post.title} - Kris`,
         description: post.description || `Artikel tentang ${post.title}`,
     };
 }
@@ -25,17 +26,21 @@ export const revalidate = 60;
 
 export default async function BlogPost({ params }) {
     const { slug } = await params;
-    const post = await getItemDetails(slug, process.env.NOTION_BLOG_DATABASE_ID);
+    const allPosts = await getBlogPosts();
+    const postMeta = allPosts.find(p => p.slug === slug);
+    const postContent = await getItemDetails(slug, process.env.NOTION_BLOG_DATABASE_ID);
 
-    if (!post) {
+    if (!postMeta || !postContent) {
         notFound();
     }
+
+    const post = { ...postMeta, content: postContent.content };
 
     return (
         <div className="min-h-screen bg-slate-50">
             <Header />
             <main className="pt-28 pb-16">
-                <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <article className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <Link href="/blog" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-blue-600 mb-8 transition-colors">
                         <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -45,8 +50,10 @@ export default async function BlogPost({ params }) {
 
                     <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-12">
                         {post.cover && (
-                            <div className="w-full h-64 md:h-96 bg-slate-100 border-b border-slate-100">
-                                <img src={post.cover} alt={post.title} className="w-full h-full object-cover" />
+                            <div className="w-full bg-slate-100 border-b border-slate-100 p-4 md:p-8 flex items-center justify-center">
+                                <div className="relative rounded-2xl overflow-hidden shadow-lg border border-black/5 w-full max-w-4xl max-h-[600px] flex items-center justify-center bg-white">
+                                    <img src={post.cover} alt={post.title} className="w-full h-auto object-contain max-h-[600px]" />
+                                </div>
                             </div>
                         )}
 
@@ -75,8 +82,22 @@ export default async function BlogPost({ params }) {
                 prose-ul:text-slate-600 prose-ul:my-6 prose-li:my-2
                 prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:text-slate-700 prose-blockquote:font-medium prose-blockquote:rounded-r-lg prose-blockquote:my-8
                 prose-code:text-blue-600 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
-                prose-pre:bg-slate-900 prose-pre:text-slate-50 prose-pre:rounded-xl prose-pre:p-6 prose-pre:shadow-lg prose-pre:overflow-x-auto">
-                                <ReactMarkdown>{post.content}</ReactMarkdown>
+                prose-pre:bg-slate-900 prose-pre:text-slate-50 prose-pre:rounded-xl prose-pre:p-6 prose-pre:shadow-lg prose-pre:overflow-x-auto
+                prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
+                prose-th:bg-slate-100 prose-th:p-4 prose-th:font-semibold prose-th:text-slate-900 prose-th:border prose-th:border-slate-200
+                prose-td:p-4 prose-td:border prose-td:border-slate-200 prose-td:text-slate-600">
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        table: ({ node, ...props }) => (
+                                            <div className="overflow-x-auto w-full relative">
+                                                <table {...props} className="w-full min-w-[600px]" />
+                                            </div>
+                                        )
+                                    }}
+                                >
+                                    {post.content}
+                                </ReactMarkdown>
                             </div>
                         </div>
                     </div>

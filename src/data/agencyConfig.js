@@ -1,7 +1,7 @@
 
 export const agencyConfig = {
   brand: {
-    name: "KrisDigital Studio",
+    name: "Kris",
     tagline: "Bikin Bisnis Lebih Laris dengan Website Otomatis",
     whatsappNumber: "6285186816062",
     instagram: "krisdntro"

@@ -13,7 +13,13 @@ const getPlainText = (property) => property?.rich_text?.[0]?.plain_text || prope
 const getSelectName = (property) => property?.select?.name || '';
 const getMultiSelectNames = (property) => property?.multi_select?.map(item => item.name) || [];
 const getDateStr = (property) => property?.date?.start || '';
-const getUrl = (property) => property?.url || '';
+const getUrl = (property) => {
+    let url = property?.url || '';
+    if (url && !url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('mailto:') && !url.startsWith('tel:')) {
+        url = 'https://' + url;
+    }
+    return url;
+};
 const getNumber = (property) => property?.number || 0;
 const getCheckbox = (property) => property?.checkbox || false;
 const getCoverUrl = (item) => item.cover?.external?.url || item.cover?.file?.url || '';
@@ -192,7 +198,7 @@ export const getItemDetails = cache(async (slug, databaseId) => {
             rawItem: item, // In case page needs specific properties
             id: item.id,
             title,
-            content: content.parent || content,
+            content: typeof content === 'string' ? content : (content?.parent || ''),
             cover: getCoverUrl(item) || getFileUrl(item.properties.Thumbnail),
             slug
         };

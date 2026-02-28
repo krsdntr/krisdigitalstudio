@@ -30,20 +30,20 @@
       "namedRegex": "^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"
     },
     {
-      "page": "/portfolio/[slug]",
-      "regex": "^/portfolio/([^/]+?)(?:/)?$",
-      "routeKeys": {
-        "nxtPslug": "nxtPslug"
-      },
-      "namedRegex": "^/portfolio/(?<nxtPslug>[^/]+?)(?:/)?$"
-    },
-    {
       "page": "/products/[slug]",
       "regex": "^/products/([^/]+?)(?:/)?$",
       "routeKeys": {
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/products/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/projects/[slug]",
+      "regex": "^/projects/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/projects/(?<nxtPslug>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -72,16 +72,16 @@
       "namedRegex": "^/blog(?:/)?$"
     },
     {
-      "page": "/portfolio",
-      "regex": "^/portfolio(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/portfolio(?:/)?$"
-    },
-    {
       "page": "/products",
       "regex": "^/products(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/products(?:/)?$"
+    },
+    {
+      "page": "/projects",
+      "regex": "^/projects(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/projects(?:/)?$"
     }
   ],
   "dataRoutes": [],

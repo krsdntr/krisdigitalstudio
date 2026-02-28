@@ -1239,8 +1239,9 @@ async function Projects({ blockData }) {
                     children: projects.map((project)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all group flex flex-col h-full",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "relative h-56 bg-gray-100 w-full overflow-hidden",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                    href: `/projects/${project.slug}`,
+                                    className: "relative h-56 bg-gray-100 w-full overflow-hidden block group/image border-b border-gray-100",
                                     children: [
                                         project.cover ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                             src: project.cover,
@@ -1264,19 +1265,26 @@ async function Projects({ blockData }) {
                                             lineNumber: 51,
                                             columnNumber: 41
                                         }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute inset-0 bg-black/5 group-hover/image:bg-black/20 transition-colors duration-300 pointer-events-none"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Projects.jsx",
+                                            lineNumber: 55,
+                                            columnNumber: 37
+                                        }, this),
                                         project.industry && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "absolute top-4 left-4",
+                                            className: "absolute top-4 left-4 z-10",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-700 shadow-sm",
+                                                className: "bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-700 shadow-sm border border-white/50",
                                                 children: project.industry
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Projects.jsx",
-                                                lineNumber: 57,
+                                                lineNumber: 58,
                                                 columnNumber: 45
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Projects.jsx",
-                                            lineNumber: 56,
+                                            lineNumber: 57,
                                             columnNumber: 41
                                         }, this)
                                     ]
@@ -1291,10 +1299,18 @@ async function Projects({ blockData }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             className: "text-xl font-bold text-slate-900 mb-2 truncate",
                                             title: project.title,
-                                            children: project.title
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                                href: `/projects/${project.slug}`,
+                                                className: "hover:text-blue-600 transition-colors",
+                                                children: project.title
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/components/Projects.jsx",
+                                                lineNumber: 66,
+                                                columnNumber: 41
+                                            }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Projects.jsx",
-                                            lineNumber: 64,
+                                            lineNumber: 65,
                                             columnNumber: 37
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1303,7 +1319,7 @@ async function Projects({ blockData }) {
                                             children: project.description
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Projects.jsx",
-                                            lineNumber: 65,
+                                            lineNumber: 70,
                                             columnNumber: 37
                                         }, this),
                                         project.liveUrl && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1317,19 +1333,19 @@ async function Projects({ blockData }) {
                                                     className: "h-4 w-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Projects.jsx",
-                                                    lineNumber: 75,
+                                                    lineNumber: 80,
                                                     columnNumber: 58
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Projects.jsx",
-                                            lineNumber: 69,
+                                            lineNumber: 74,
                                             columnNumber: 41
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Projects.jsx",
-                                    lineNumber: 63,
+                                    lineNumber: 64,
                                     columnNumber: 33
                                 }, this)
                             ]
@@ -1354,18 +1370,18 @@ async function Projects({ blockData }) {
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Projects.jsx",
-                                lineNumber: 91,
+                                lineNumber: 96,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Projects.jsx",
-                        lineNumber: 86,
+                        lineNumber: 91,
                         columnNumber: 25
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/Projects.jsx",
-                    lineNumber: 85,
+                    lineNumber: 90,
                     columnNumber: 21
                 }, this)
             ]
@@ -1799,31 +1815,17 @@ async function Articles({ blockData }) {
                     children: posts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all group flex flex-col h-full cursor-pointer",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "relative h-48 bg-gray-100 w-full overflow-hidden",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                    href: `/blog/${post.slug}`,
+                                    className: "relative h-48 bg-gray-100 w-full overflow-hidden block group/image border-b border-gray-100",
                                     children: [
-                                        post.category && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "absolute top-4 left-4 z-10",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm",
-                                                children: post.category
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Articles.jsx",
-                                                lineNumber: 45,
-                                                columnNumber: 45
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Articles.jsx",
-                                            lineNumber: 44,
-                                            columnNumber: 41
-                                        }, this),
                                         post.cover ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                             src: post.cover,
                                             alt: post.title,
                                             className: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Articles.jsx",
-                                            lineNumber: 52,
+                                            lineNumber: 44,
                                             columnNumber: 41
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "w-full h-full flex items-center justify-center bg-slate-200",
@@ -1831,12 +1833,34 @@ async function Articles({ blockData }) {
                                                 className: "h-10 w-10 text-slate-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Articles.jsx",
-                                                lineNumber: 59,
+                                                lineNumber: 51,
                                                 columnNumber: 45
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Articles.jsx",
-                                            lineNumber: 58,
+                                            lineNumber: 50,
+                                            columnNumber: 41
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute inset-0 bg-black/5 group-hover/image:bg-black/20 transition-colors duration-300 pointer-events-none"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Articles.jsx",
+                                            lineNumber: 54,
+                                            columnNumber: 37
+                                        }, this),
+                                        post.category && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute top-4 left-4 z-10",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm border border-white/20",
+                                                children: post.category
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/components/Articles.jsx",
+                                                lineNumber: 57,
+                                                columnNumber: 45
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Articles.jsx",
+                                            lineNumber: 56,
                                             columnNumber: 41
                                         }, this)
                                     ]

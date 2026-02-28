@@ -18,7 +18,7 @@ const extraStyles = [
     { name: "WhatsApp Number", key: "whatsapp_number", value: "6281234567890", type: "text" },
     { name: "Instagram Username", key: "instagram_username", value: "krisdigitalstudio", type: "text" },
     { name: "Email Address", key: "email_address", value: "hello@krisdigital.com", type: "text" },
-    { name: "Footer Text", key: "footer_text", value: "© 2026 KrisDigital Studio. All rights reserved.", type: "text" },
+    { name: "Footer Text", key: "footer_text", value: "© 2026 Kris. All rights reserved.", type: "text" },
     { name: "Hero Image URL", key: "hero_image_url", value: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop", type: "url" },
     { name: "Logo URL", key: "logo_url", value: "", type: "url" },
     { name: "Meta Image URL", key: "meta_image_url", value: "", type: "url" }

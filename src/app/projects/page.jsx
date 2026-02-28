@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 export const metadata = {
-    title: 'Project & Portfolio - KrisDigital Studio',
+    title: 'Project & Portfolio - Kris',
     description: 'Lihat bagaimana kami membantu bisnis lain berkembang secara digital melalui web dan optimasi.',
 };
 

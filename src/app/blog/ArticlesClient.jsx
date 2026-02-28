@@ -102,27 +102,29 @@ export default function ArticlesClient({ initialPosts }) {
                     {filteredAndSorted.map((post) => (
                         <div key={post.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all group flex flex-col h-full cursor-pointer">
 
-                            <div className="relative h-48 bg-gray-100 w-full overflow-hidden">
+                            <Link href={`/blog/${post.slug}`} className="relative h-56 bg-slate-100 w-full overflow-hidden block group/image border-b border-gray-100 p-4">
+                                <div className="relative w-full h-full rounded-xl overflow-hidden shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white border border-black/5 transform transition-transform duration-500 group-hover:scale-[1.02]">
+                                    {post.cover ? (
+                                        <img
+                                            src={post.cover}
+                                            alt={post.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center bg-slate-50">
+                                            <FileText className="h-10 w-10 text-slate-300" />
+                                        </div>
+                                    )}
+                                    <div className="absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                                </div>
                                 {post.category && (
-                                    <div className="absolute top-4 left-4 z-10">
-                                        <span className="bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                                    <div className="absolute top-6 left-6 z-20 pointer-events-none">
+                                        <span className="bg-slate-900/80 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-wider shadow-sm border border-white/10">
                                             {post.category}
                                         </span>
                                     </div>
                                 )}
-
-                                {post.cover ? (
-                                    <img
-                                        src={post.cover}
-                                        alt={post.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                    />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-slate-200">
-                                        <FileText className="h-10 w-10 text-slate-400" />
-                                    </div>
-                                )}
-                            </div>
+                            </Link>
 
                             <div className="p-6 flex flex-col flex-grow">
                                 <div className="flex items-center text-xs text-gray-500 mb-3 font-medium">

@@ -1,0 +1,57 @@
+{
+  "sorted_middleware": [
+    "/blog/[slug]/page"
+  ],
+  "middleware": {},
+  "instrumentation": null,
+  "functions": {
+    "/blog/[slug]/page": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "required-server-files.js",
+        "server/next-font-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_f305aa70._.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_esm_1de25341._.js",
+        "server/edge/chunks/ssr/node_modules_4d0dd914._.js",
+        "server/edge/chunks/ssr/node_modules_d4770afa._.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_707f54ea._.js",
+        "server/edge/chunks/ssr/node_modules_53400aa7._.js",
+        "server/edge/chunks/ssr/_798846c6._.js",
+        "server/app/blog/[slug]/page_client-reference-manifest.js",
+        "server/edge/chunks/ssr/_next-internal_server_app_blog_[slug]_page_actions_fe62a22b.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_esm_eca3b20c._.js",
+        "server/edge/chunks/ssr/[root-of-the-server]__4d747006._.js",
+        "server/edge/chunks/ssr/node_modules_14d2ff67._.js",
+        "server/edge/chunks/ssr/_e96fc580._.js",
+        "server/edge/chunks/ssr/_28e2ea1c._.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_b4d008d4._.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_a41a436a._.js",
+        "server/edge/chunks/ssr/_21562af7._.js",
+        "server/edge/chunks/ssr/[root-of-the-server]__3202855f._.js",
+        "server/edge/chunks/ssr/node_modules_c988a4b2._.js",
+        "server/edge/chunks/ssr/node_modules_next_dist_compiled_2adaed9e._.js",
+        "server/edge/chunks/ssr/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_5440ca86.js",
+        "server/app/blog/[slug]/page/react-loadable-manifest.js"
+      ],
+      "name": "app/blog/[slug]/page",
+      "page": "/blog/[slug]/page",
+      "matchers": [
+        {
+          "regexp": "^/blog/(?P<nxtPslug>[^/]+?)(?:/)?$",
+          "originalSource": "/blog/[slug]"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "YLGAAo6Ijy6f2RiBO2qZC",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "fFcEkJRIgT2Vv2nRINwsGr90SCObHT5+g1M0HcSIMlM=",
+        "__NEXT_PREVIEW_MODE_ID": "e6580b40735dbe8f2a3edc4084ac4f46",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "5d3b6633a65035e870e29ebeb50c6af55f283bd834982b30ec60103d789a2f99",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "05d6ae4d1faa39f31c2210b28bede95faaf4b43ef6a164e80faf692575856214"
+      }
+    }
+  }
+}

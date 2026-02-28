@@ -17,16 +17,9 @@ export default function Hero({ blockData }) {
     const rawChecklists = blockData ? blockData.checklists : "Terima Beres, Tanpa Biaya Bulanan, Proses Cepat 3 Hari";
     const checklistItems = rawChecklists ? rawChecklists.split(/,|\n/).map(c => c.trim()).filter(Boolean) : [];
 
-    const words = titleText.split(' ');
-    let firstPart = titleText;
-    let highlightPart = "";
-    if (words.length > 2) {
-        highlightPart = words.splice(-2).join(' ');
-        firstPart = words.join(' ');
-    } else {
-        firstPart = "";
-        highlightPart = titleText;
-    }
+    // Remove the logic for splitting title, we will just use it directly
+    // and let CSS handle capitalization
+
 
     // Typing effect for the code window
     const [codeText, setCodeText] = useState("");
@@ -88,13 +81,7 @@ console.log("System Online");`;
     };
 
     return (
-        <section className="relative overflow-hidden bg-slate-50 pt-16 pb-16 lg:pt-24 lg:pb-20">
-            {/* Background Gradients */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-                <div className="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] bg-blue-300 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob"></div>
-                <div className="absolute top-[20%] -left-[10%] w-[60%] h-[60%] bg-indigo-300 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob animation-delay-2000"></div>
-            </div>
-
+        <section className="relative overflow-hidden bg-transparent pt-16 pb-16 lg:pt-24 lg:pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
 
@@ -110,43 +97,42 @@ console.log("System Online");`;
                             </div>
                         )}
 
-                        <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15]">
-                            {firstPart} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">{highlightPart}</span>
+                        <h1 className="text-5xl md:text-7xl font-[800] tracking-[-0.03em] text-slate-900 mb-6 leading-[1.15]">
+                            {titleText.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())}<span className="text-blue-600">.</span>
                         </h1>
 
-                        <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl">
+                        <p className="text-lg md:text-[1.125rem] text-slate-600 mb-10 leading-[1.625] max-w-[65ch]">
                             {subtitle}
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12">
-                            {ctaText && (
-                                <a
-                                    href={ctaLink}
-                                    className="w-full sm:w-auto px-8 py-4 my-auto bg-blue-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:shadow-blue-600/40 transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
-                                >
-                                    {ctaText} <ArrowRight className="h-5 w-5" />
-                                </a>
-                            )}
-                            {secondaryCtaText && (
-                                <a
-                                    href={secondaryCtaLink}
-                                    target={secondaryCtaLink.startsWith('http') ? "_blank" : "_self"}
-                                    rel={secondaryCtaLink.startsWith('http') ? "noopener noreferrer" : ""}
-                                    className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-sm my-auto"
-                                >
-                                    {secondaryCtaText}
-                                </a>
-                            )}
-                        </div>
+                        {(ctaText || secondaryCtaText) && (
+                            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12">
+                                {ctaText && (
+                                    <a
+                                        href={ctaLink}
+                                        className="w-full sm:w-auto px-8 py-4 my-auto bg-blue-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:shadow-blue-600/40 transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
+                                    >
+                                        {ctaText} <ArrowRight className="h-5 w-5" />
+                                    </a>
+                                )}
+                                {secondaryCtaText && (
+                                    <a
+                                        href={secondaryCtaLink}
+                                        target={secondaryCtaLink.startsWith('http') ? "_blank" : "_self"}
+                                        rel={secondaryCtaLink.startsWith('http') ? "noopener noreferrer" : ""}
+                                        className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-sm my-auto"
+                                    >
+                                        {secondaryCtaText}
+                                    </a>
+                                )}
+                            </div>
+                        )}
 
                         {checklistItems.length > 0 && (
-                            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-slate-600">
+                            <div className="flex flex-wrap items-center gap-3 mt-4">
                                 {checklistItems.map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-2">
-                                        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 text-green-600">
-                                            <Check className="h-3 w-3" />
-                                        </div>
-                                        <span>{item}</span>
+                                    <div key={idx} className="px-5 py-2 rounded-full border border-slate-200 bg-slate-50/50 backdrop-blur-sm text-slate-700 font-medium text-sm shadow-sm">
+                                        {item}
                                     </div>
                                 ))}
                             </div>

@@ -12,6 +12,7 @@ import Projects from "../components/Projects";
 import Products from "../components/Products";
 import Articles from "../components/Articles";
 import TextMedia from "../components/TextMedia";
+import Stats from "../components/Stats";
 
 import { getLandingBlocks } from "../lib/notion";
 
@@ -28,7 +29,8 @@ const componentMap = {
     'Projects': Projects,
     'Products': Products,
     'Articles': Articles,
-    'TextMedia': TextMedia
+    'TextMedia': TextMedia,
+    'Stats': Stats
 };
 
 export const revalidate = 60; // Cache landing page blocks for 60 seconds

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { ArrowRight, Package, Search, Filter } from "lucide-react";
+import Link from "next/link";
 
 export default function ProductsClient({ initialProducts }) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -106,7 +107,7 @@ export default function ProductsClient({ initialProducts }) {
                         <div key={product.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all group flex flex-col h-full relative">
 
                             {/* Badges */}
-                            <div className="absolute top-4 right-4 z-10 flex gap-2">
+                            <div className="absolute top-4 right-4 z-20 flex gap-2">
                                 {product.isFreebie && (
                                     <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
                                         GRATIS
@@ -119,29 +120,36 @@ export default function ProductsClient({ initialProducts }) {
                                 )}
                             </div>
 
-                            <div className="relative h-48 bg-slate-100 w-full overflow-hidden">
-                                {product.cover ? (
-                                    <img
-                                        src={product.cover}
-                                        alt={product.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                    />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-slate-200">
-                                        <Package className="h-10 w-10 text-slate-400" />
-                                    </div>
-                                )}
+                            <Link href={`/products/${product.slug}`} className="relative h-56 bg-slate-100 w-full overflow-hidden block border-b border-gray-100 p-4 group/image">
+                                <div className="relative w-full h-full rounded-xl overflow-hidden shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white border border-black/5 transform transition-transform duration-500 group-hover:scale-[1.02]">
+                                    {product.cover ? (
+                                        <img
+                                            src={product.cover}
+                                            alt={product.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center bg-slate-50">
+                                            <Package className="h-10 w-10 text-slate-300" />
+                                        </div>
+                                    )}
+                                    <div className="absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                                </div>
                                 {product.productType && (
-                                    <div className="absolute top-4 left-4">
-                                        <span className="bg-white/90 text-blue-600 px-3 py-1 rounded-full text-xs font-bold shadow-sm backdrop-blur-sm">
+                                    <div className="absolute top-6 left-6 z-20 pointer-events-none">
+                                        <span className="bg-white/95 text-blue-600 px-3 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-wider shadow-sm backdrop-blur-md border border-white/50">
                                             {product.productType}
                                         </span>
                                     </div>
                                 )}
-                            </div>
+                            </Link>
 
                             <div className="p-6 flex flex-col flex-grow">
-                                <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2" title={product.title}>{product.title}</h3>
+                                <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2" title={product.title}>
+                                    <Link href={`/products/${product.slug}`} className="hover:text-blue-600 transition-colors">
+                                        {product.title}
+                                    </Link>
+                                </h3>
 
                                 <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
                                     {product.description}

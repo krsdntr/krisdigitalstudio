@@ -4,7 +4,7 @@ import Footer from '../../components/Footer';
 import ProductsClient from './ProductsClient';
 
 export const metadata = {
-    title: 'Produk Digital - KrisDigital Studio',
+    title: 'Produk Digital - Kris',
     description: 'Katalog template, script, dan produk digital untuk produktivitas Anda.',
 };
 

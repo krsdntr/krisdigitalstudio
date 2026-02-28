@@ -1,5 +1,6 @@
-import { getItemDetails, getDigitalProducts } from '../../../lib/notion';
+import { getItemDetails, getDigitalProducts, getSystemStyles } from '../../../lib/notion';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }) {
     if (!product) return { title: 'Product Not Found' };
 
     return {
-        title: `${product.title} - Produk Digital KrisDigital Studio`,
+        title: `${product.title} - Produk Digital Kris`,
         description: product.description || `Beli produk digital: ${product.title}`,
     };
 }
@@ -28,6 +29,7 @@ export default async function ProductPost({ params }) {
     const allProducts = await getDigitalProducts();
     const productMeta = allProducts.find(p => p.slug === slug);
     const productContent = await getItemDetails(slug, process.env.NOTION_PRODUCT_DATABASE_ID);
+    const styles = await getSystemStyles();
 
     if (!productMeta || !productContent) {
         notFound();
@@ -37,11 +39,17 @@ export default async function ProductPost({ params }) {
     const product = { ...productMeta, content: productContent.content };
     const currentPrice = product.isFreebie ? 0 : (product.discountPrice > 0 ? product.discountPrice : product.price);
 
+    // Dynamic strings from System Styles DB
+    const priceLabel = styles.product_price_label?.value || "Harga Pembelian Sekali Bayar";
+    const buyBtnText = styles.product_buy_button?.value || "Beli Sekarang di Lynk.id/Sejoli";
+    const freeBtnText = styles.product_free_button?.value || "Download Sekarang";
+    const secureText = styles.product_secure_text?.value || "Pembayaran Diproses Secara Aman";
+
     return (
         <div className="min-h-screen bg-slate-50">
             <Header />
             <main className="pt-28 pb-16">
-                <article className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <Link href="/products" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-blue-600 mb-8 transition-colors">
                         <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -50,13 +58,15 @@ export default async function ProductPost({ params }) {
                     </Link>
 
                     <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-12">
-                        <div className="grid grid-cols-1 lg:grid-cols-2">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
 
                             {/* Left Column: Image & Details */}
-                            <div className="p-8 lg:p-12 lg:border-r border-slate-100 bg-slate-50/50">
+                            <div className="p-8 lg:p-12 lg:border-r border-slate-100 bg-slate-50/50 lg:col-span-5 border-b lg:border-b-0">
                                 {product.cover ? (
-                                    <div className="w-full h-80 bg-white rounded-2xl shadow-sm overflow-hidden mb-8">
-                                        <img src={product.cover} alt={product.title} className="w-full h-full object-contain p-4" />
+                                    <div className="w-full bg-slate-100 rounded-2xl shadow-sm border border-slate-100 mb-8 p-4 flex items-center justify-center">
+                                        <div className="relative rounded-xl overflow-hidden shadow-lg border border-black/5 w-full bg-white flex items-center justify-center">
+                                            <img src={product.cover} alt={product.title} className="w-full h-auto object-contain max-h-[500px]" />
+                                        </div>
                                     </div>
                                 ) : (
                                     <div className="w-full h-80 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-8 border border-slate-100">
@@ -84,7 +94,7 @@ export default async function ProductPost({ params }) {
                             </div>
 
                             {/* Right Column: Title, Price, Buy & Body */}
-                            <div className="p-8 lg:p-12">
+                            <div className="p-8 lg:p-12 lg:col-span-7">
                                 {product.productType && (
                                     <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-6">
                                         {product.productType}
@@ -101,7 +111,7 @@ export default async function ProductPost({ params }) {
 
                                 <div className="p-6 bg-slate-50 rounded-2xl mb-10 border border-slate-100">
                                     <div className="mb-6">
-                                        <span className="text-sm font-medium text-slate-500 mb-1 block">Harga Pembelian Sekali Bayar</span>
+                                        <span className="text-sm font-medium text-slate-500 mb-1 block">{priceLabel}</span>
                                         <div className="flex items-end gap-3">
                                             {product.isFreebie ? (
                                                 <span className="text-4xl font-bold text-green-600">Terbatas! GRATIS</span>
@@ -129,7 +139,7 @@ export default async function ProductPost({ params }) {
                                             rel="noopener noreferrer"
                                             className="w-full block text-center py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
                                         >
-                                            {product.isFreebie ? 'Download Sekarang' : 'Beli Sekarang di Lynk.id/Sejoli'}
+                                            {product.isFreebie ? freeBtnText : buyBtnText}
                                         </a>
                                     ) : (
                                         <button disabled className="w-full py-4 bg-slate-200 text-slate-500 font-bold rounded-xl cursor-not-allowed">
@@ -141,7 +151,7 @@ export default async function ProductPost({ params }) {
                                         <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                         </svg>
-                                        Pembayaran Diproses Secara Aman
+                                        {secureText}
                                     </div>
                                 </div>
 
@@ -149,11 +159,25 @@ export default async function ProductPost({ params }) {
                                 {product.content && (
                                     <div>
                                         <h3 className="text-xl font-bold text-slate-900 mb-6 pb-4 border-b border-slate-100">Detail Lengkap</h3>
-                                        <div className="prose prose-slate max-w-none 
-                      prose-headings:text-slate-900 
-                      prose-a:text-blue-600 
-                      prose-img:rounded-xl">
-                                            <ReactMarkdown>{product.content}</ReactMarkdown>
+                                        <div className="prose prose-slate max-w-none
+                                            prose-headings:text-slate-900
+                                            prose-a:text-blue-600
+                                            prose-img:rounded-xl
+                                            prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
+                                            prose-th:bg-slate-100 prose-th:p-4 prose-th:font-semibold prose-th:text-slate-900 prose-th:border prose-th:border-slate-200
+                                            prose-td:p-4 prose-td:border prose-td:border-slate-200 prose-td:text-slate-600">
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                components={{
+                                                    table: ({ node, ...props }) => (
+                                                        <div className="overflow-x-auto w-full relative">
+                                                            <table {...props} className="w-full min-w-[600px]" />
+                                                        </div>
+                                                    )
+                                                }}
+                                            >
+                                                {product.content}
+                                            </ReactMarkdown>
                                         </div>
                                     </div>
                                 )}

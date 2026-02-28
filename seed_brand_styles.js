@@ -9,7 +9,7 @@ const notion = new Client({ auth: secretMatch[1].trim() });
 const dbId = stylesDbMatch[1].trim();
 
 const brandStyles = [
-    { name: "Brand Name", key: "brand_name", value: "KrisDigital Studio", type: "text" },
+    { name: "Brand Name", key: "brand_name", value: "Kris", type: "text" },
     { name: "Brand Tagline", key: "brand_tagline", value: "Bikin Bisnis Lebih Laris dengan Website Otomatis", type: "text" },
     { name: "Brand Instagram", key: "brand_instagram", value: "krisdntro", type: "text" },
     { name: "Brand WhatsApp", key: "brand_whatsapp", value: "6285186816062", type: "text" },

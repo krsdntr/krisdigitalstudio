@@ -8,33 +8,36 @@ import { agencyConfig } from "../data/agencyConfig";
 export default function HeaderClient({ styles }) {
     const [isOpen, setIsOpen] = useState(false);
 
-    // Extract dynamic nav links or fallback to defaults
-    const getNavText = (idx, fallback) => styles[`nav_link_${idx}_text`]?.value || fallback;
-    const getNavUrl = (idx, fallback) => styles[`nav_link_${idx}_url`]?.value || fallback;
+    // Build dynamic navigation items by iterating over possible keys (up to 10 for safety)
+    const navItems = [];
+    for (let i = 1; i <= 10; i++) {
+        const textValue = styles[`nav_link_${i}_text`]?.value;
+        const urlValue = styles[`nav_link_${i}_url`]?.value;
 
-    const navItems = [
-        { text: getNavText(1, 'Tentang'), url: getNavUrl(1, '/#about') },
-        { text: getNavText(2, 'Projects'), url: getNavUrl(2, '/projects') },
-        { text: getNavText(3, 'Produk'), url: getNavUrl(3, '/products') },
-        { text: getNavText(4, 'Artikel'), url: getNavUrl(4, '/blog') },
-        { text: getNavText(5, 'Harga'), url: getNavUrl(5, '/#pricing') },
-        { text: getNavText(6, 'FAQ'), url: getNavUrl(6, '/#faq') },
-    ];
+        // If both text and URL are defined in Notion, add it
+        if (textValue && urlValue) {
+            navItems.push({ text: textValue, url: urlValue });
+        }
+    }
 
+    // Default CTA fallback
     const ctaText = styles['header_cta_text']?.value || "Hubungi Saya";
     const brandName = styles['brand_name']?.value || agencyConfig.brand.name;
     const whatsapp = styles['brand_whatsapp']?.value || agencyConfig.brand.whatsappNumber;
+
+    // Check if there is a deliberate CTA URL set in Notion
+    const ctaUrl = styles['header_cta_url']?.value || `https://wa.me/${whatsapp}`;
 
     return (
         <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="flex-shrink-0 flex items-center gap-2">
+                    <Link href="/" className="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition-opacity">
                         <Rocket className="h-6 w-6 text-blue-600" />
                         <span className="font-bold text-xl text-slate-800 tracking-tight">
                             {brandName}
                         </span>
-                    </div>
+                    </Link>
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center space-x-8">
@@ -47,9 +50,9 @@ export default function HeaderClient({ styles }) {
                             )
                         ))}
                         <a
-                            href={`https://wa.me/${whatsapp}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={ctaUrl}
+                            target={ctaUrl.startsWith('http') ? "_blank" : "_self"}
+                            rel={ctaUrl.startsWith('http') ? "noopener noreferrer" : ""}
                             className="bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                         >
                             {ctaText}
@@ -80,9 +83,9 @@ export default function HeaderClient({ styles }) {
                             )
                         ))}
                         <a
-                            href={`https://wa.me/${whatsapp}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={ctaUrl}
+                            target={ctaUrl.startsWith('http') ? "_blank" : "_self"}
+                            rel={ctaUrl.startsWith('http') ? "noopener noreferrer" : ""}
                             onClick={() => setIsOpen(false)}
                             className="block w-full text-center mt-4 bg-blue-600 text-white px-3 py-3 rounded-lg font-medium hover:bg-blue-700"
                         >

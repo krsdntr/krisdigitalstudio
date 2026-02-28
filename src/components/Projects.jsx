@@ -1,6 +1,7 @@
 import { getProjects } from "../lib/notion";
 import { ArrowRight, ImageIcon } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Projects({ blockData }) {
     // Fetch top 3 projects from Notion
@@ -40,28 +41,37 @@ export default async function Projects({ blockData }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {projects.map((project) => (
                             <div key={project.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all group flex flex-col h-full">
-                                <div className="relative h-56 bg-gray-100 w-full overflow-hidden">
-                                    {project.cover ? (
-                                        <img
-                                            src={project.cover}
-                                            alt={project.title}
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-slate-200">
-                                            <ImageIcon className="h-10 w-10 text-slate-400" />
-                                        </div>
-                                    )}
+                                <Link href={`/projects/${project.slug}`} className="relative h-60 bg-slate-100 w-full overflow-hidden block group/image border-b border-gray-100 p-4">
+                                    <div className="relative w-full h-full rounded-xl overflow-hidden shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white border border-black/5 transform transition-transform duration-500 group-hover:scale-[1.02]">
+                                        {project.cover ? (
+                                            <Image
+                                                src={project.cover}
+                                                alt={project.title}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center bg-slate-50">
+                                                <ImageIcon className="h-10 w-10 text-slate-300" />
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                                    </div>
                                     {project.industry && (
-                                        <div className="absolute top-4 left-4">
-                                            <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-700 shadow-sm">
+                                        <div className="absolute top-6 left-6 z-20 pointer-events-none">
+                                            <span className="bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] uppercase font-bold text-slate-800 tracking-wider shadow-sm border border-white/50">
                                                 {project.industry}
                                             </span>
                                         </div>
                                     )}
-                                </div>
+                                </Link>
                                 <div className="p-6 flex flex-col flex-grow">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2 truncate" title={project.title}>{project.title}</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2 truncate" title={project.title}>
+                                        <Link href={`/projects/${project.slug}`} className="hover:text-blue-600 transition-colors">
+                                            {project.title}
+                                        </Link>
+                                    </h3>
                                     <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow" title={project.description}>
                                         {project.description}
                                     </p>

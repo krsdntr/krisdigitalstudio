@@ -14,7 +14,7 @@ __turbopack_context__.s([
 ]);
 const agencyConfig = {
     brand: {
-        name: "KrisDigital Studio",
+        name: "Kris",
         tagline: "Bikin Bisnis Lebih Laris dengan Website Otomatis",
         whatsappNumber: "6285186816062",
         instagram: "krisdntro"
@@ -183,38 +183,25 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$
 ;
 function HeaderClient({ styles }) {
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Extract dynamic nav links or fallback to defaults
-    const getNavText = (idx, fallback)=>styles[`nav_link_${idx}_text`]?.value || fallback;
-    const getNavUrl = (idx, fallback)=>styles[`nav_link_${idx}_url`]?.value || fallback;
-    const navItems = [
-        {
-            text: getNavText(1, 'Tentang'),
-            url: getNavUrl(1, '/#about')
-        },
-        {
-            text: getNavText(2, 'Projects'),
-            url: getNavUrl(2, '/projects')
-        },
-        {
-            text: getNavText(3, 'Produk'),
-            url: getNavUrl(3, '/products')
-        },
-        {
-            text: getNavText(4, 'Artikel'),
-            url: getNavUrl(4, '/blog')
-        },
-        {
-            text: getNavText(5, 'Harga'),
-            url: getNavUrl(5, '/#pricing')
-        },
-        {
-            text: getNavText(6, 'FAQ'),
-            url: getNavUrl(6, '/#faq')
+    // Build dynamic navigation items by iterating over possible keys (up to 10 for safety)
+    const navItems = [];
+    for(let i = 1; i <= 10; i++){
+        const textValue = styles[`nav_link_${i}_text`]?.value;
+        const urlValue = styles[`nav_link_${i}_url`]?.value;
+        // If both text and URL are defined in Notion, add it
+        if (textValue && urlValue) {
+            navItems.push({
+                text: textValue,
+                url: urlValue
+            });
         }
-    ];
+    }
+    // Default CTA fallback
     const ctaText = styles['header_cta_text']?.value || "Hubungi Saya";
     const brandName = styles['brand_name']?.value || __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["agencyConfig"].brand.name;
     const whatsapp = styles['brand_whatsapp']?.value || __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["agencyConfig"].brand.whatsappNumber;
+    // Check if there is a deliberate CTA URL set in Notion
+    const ctaUrl = styles['header_cta_url']?.value || `https://wa.me/${whatsapp}`;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
         className: "sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100",
         children: [
@@ -223,14 +210,15 @@ function HeaderClient({ styles }) {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex justify-between h-16 items-center",
                     children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex-shrink-0 flex items-center gap-2",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/",
+                            className: "flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition-opacity",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rocket$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Rocket$3e$__["Rocket"], {
                                     className: "h-6 w-6 text-blue-600"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeaderClient.jsx",
-                                    lineNumber: 33,
+                                    lineNumber: 36,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -238,13 +226,13 @@ function HeaderClient({ styles }) {
                                     children: brandName
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeaderClient.jsx",
-                                    lineNumber: 34,
+                                    lineNumber: 37,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/HeaderClient.jsx",
-                            lineNumber: 32,
+                            lineNumber: 35,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -257,7 +245,7 @@ function HeaderClient({ styles }) {
                                         children: item.text
                                     }, i, false, {
                                         fileName: "[project]/src/components/HeaderClient.jsx",
-                                        lineNumber: 44,
+                                        lineNumber: 47,
                                         columnNumber: 33
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: item.url,
@@ -265,24 +253,24 @@ function HeaderClient({ styles }) {
                                         children: item.text
                                     }, i, false, {
                                         fileName: "[project]/src/components/HeaderClient.jsx",
-                                        lineNumber: 46,
+                                        lineNumber: 49,
                                         columnNumber: 33
                                     }, this)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                    href: `https://wa.me/${whatsapp}`,
-                                    target: "_blank",
-                                    rel: "noopener noreferrer",
+                                    href: ctaUrl,
+                                    target: ctaUrl.startsWith('http') ? "_blank" : "_self",
+                                    rel: ctaUrl.startsWith('http') ? "noopener noreferrer" : "",
                                     className: "bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5",
                                     children: ctaText
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeaderClient.jsx",
-                                    lineNumber: 49,
+                                    lineNumber: 52,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/HeaderClient.jsx",
-                            lineNumber: 40,
+                            lineNumber: 43,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -294,34 +282,34 @@ function HeaderClient({ styles }) {
                                     className: "h-6 w-6"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeaderClient.jsx",
-                                    lineNumber: 65,
+                                    lineNumber: 68,
                                     columnNumber: 39
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                     className: "h-6 w-6"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeaderClient.jsx",
-                                    lineNumber: 65,
+                                    lineNumber: 68,
                                     columnNumber: 67
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeaderClient.jsx",
-                                lineNumber: 61,
+                                lineNumber: 64,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeaderClient.jsx",
-                            lineNumber: 60,
+                            lineNumber: 63,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/HeaderClient.jsx",
-                    lineNumber: 31,
+                    lineNumber: 34,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/HeaderClient.jsx",
-                lineNumber: 30,
+                lineNumber: 33,
                 columnNumber: 13
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -336,7 +324,7 @@ function HeaderClient({ styles }) {
                                 children: item.text
                             }, i, false, {
                                 fileName: "[project]/src/components/HeaderClient.jsx",
-                                lineNumber: 77,
+                                lineNumber: 80,
                                 columnNumber: 33
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: item.url,
@@ -345,36 +333,36 @@ function HeaderClient({ styles }) {
                                 children: item.text
                             }, i, false, {
                                 fileName: "[project]/src/components/HeaderClient.jsx",
-                                lineNumber: 79,
+                                lineNumber: 82,
                                 columnNumber: 33
                             }, this)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                            href: `https://wa.me/${whatsapp}`,
-                            target: "_blank",
-                            rel: "noopener noreferrer",
+                            href: ctaUrl,
+                            target: ctaUrl.startsWith('http') ? "_blank" : "_self",
+                            rel: ctaUrl.startsWith('http') ? "noopener noreferrer" : "",
                             onClick: ()=>setIsOpen(false),
                             className: "block w-full text-center mt-4 bg-blue-600 text-white px-3 py-3 rounded-lg font-medium hover:bg-blue-700",
                             children: ctaText
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeaderClient.jsx",
-                            lineNumber: 82,
+                            lineNumber: 85,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/HeaderClient.jsx",
-                    lineNumber: 74,
+                    lineNumber: 77,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/HeaderClient.jsx",
-                lineNumber: 73,
+                lineNumber: 76,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/HeaderClient.jsx",
-        lineNumber: 29,
+        lineNumber: 32,
         columnNumber: 9
     }, this);
 }
@@ -392,7 +380,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$code$2d$xml$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Code2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/code-xml.js [app-ssr] (ecmascript) <export default as Code2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cpu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cpu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/cpu.js [app-ssr] (ecmascript) <export default as Cpu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$dna$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Dna$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/dna.js [app-ssr] (ecmascript) <export default as Dna>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$leaf$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Leaf$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/leaf.js [app-ssr] (ecmascript) <export default as Leaf>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pi$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pi$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pi.js [app-ssr] (ecmascript) <export default as Pi>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/agencyConfig.js [app-ssr] (ecmascript)");
@@ -414,16 +401,8 @@ function Hero({ blockData }) {
     // Parse checklists (comma separated or newline)
     const rawChecklists = blockData ? blockData.checklists : "Terima Beres, Tanpa Biaya Bulanan, Proses Cepat 3 Hari";
     const checklistItems = rawChecklists ? rawChecklists.split(/,|\n/).map((c)=>c.trim()).filter(Boolean) : [];
-    const words = titleText.split(' ');
-    let firstPart = titleText;
-    let highlightPart = "";
-    if (words.length > 2) {
-        highlightPart = words.splice(-2).join(' ');
-        firstPart = words.join(' ');
-    } else {
-        firstPart = "";
-        highlightPart = titleText;
-    }
+    // Remove the logic for splitting title, we will just use it directly
+    // and let CSS handle capitalization
     // Typing effect for the code window
     const [codeText, setCodeText] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const fullCode = `const developer = {
@@ -478,31 +457,8 @@ console.log("System Online");`;
         return positions[index] || positions[0];
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "jsx-b1134b457700a968" + " " + "relative overflow-hidden bg-slate-50 pt-16 pb-16 lg:pt-24 lg:pb-20",
+        className: "jsx-b1134b457700a968" + " " + "relative overflow-hidden bg-transparent pt-16 pb-16 lg:pt-24 lg:pb-20",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-b1134b457700a968" + " " + "absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-b1134b457700a968" + " " + "absolute -top-[20%] -right-[10%] w-[70%] h-[70%] bg-blue-300 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Hero.jsx",
-                        lineNumber: 94,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-b1134b457700a968" + " " + "absolute top-[20%] -left-[10%] w-[60%] h-[60%] bg-indigo-300 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob animation-delay-2000"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Hero.jsx",
-                        lineNumber: 95,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Hero.jsx",
-                lineNumber: 93,
-                columnNumber: 13
-            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "jsx-b1134b457700a968" + " " + "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -521,57 +477,56 @@ console.log("System Online");`;
                                                     className: "jsx-b1134b457700a968" + " " + "animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Hero.jsx",
-                                                    lineNumber: 106,
+                                                    lineNumber: 93,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "jsx-b1134b457700a968" + " " + "relative inline-flex rounded-full h-2 w-2 bg-blue-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Hero.jsx",
-                                                    lineNumber: 107,
+                                                    lineNumber: 94,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 105,
+                                            lineNumber: 92,
                                             columnNumber: 33
                                         }, this),
                                         preTitle
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 104,
+                                    lineNumber: 91,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                    className: "jsx-b1134b457700a968" + " " + "text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15]",
+                                    className: "jsx-b1134b457700a968" + " " + "text-5xl md:text-7xl font-[800] tracking-[-0.03em] text-slate-900 mb-6 leading-[1.15]",
                                     children: [
-                                        firstPart,
-                                        " ",
+                                        titleText.replace(/\w\S*/g, (txt)=>txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "jsx-b1134b457700a968" + " " + "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600",
-                                            children: highlightPart
+                                            className: "jsx-b1134b457700a968" + " " + "text-blue-600",
+                                            children: "."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 114,
-                                            columnNumber: 41
+                                            lineNumber: 101,
+                                            columnNumber: 126
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 113,
+                                    lineNumber: 100,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "jsx-b1134b457700a968" + " " + "text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl",
+                                    className: "jsx-b1134b457700a968" + " " + "text-lg md:text-[1.125rem] text-slate-600 mb-10 leading-[1.625] max-w-[65ch]",
                                     children: subtitle
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 117,
+                                    lineNumber: 104,
                                     columnNumber: 25
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                (ctaText || secondaryCtaText) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "jsx-b1134b457700a968" + " " + "flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12",
                                     children: [
                                         ctaText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -584,14 +539,14 @@ console.log("System Online");`;
                                                     className: "h-5 w-5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Hero.jsx",
-                                                    lineNumber: 127,
-                                                    columnNumber: 47
+                                                    lineNumber: 115,
+                                                    columnNumber: 51
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 123,
-                                            columnNumber: 33
+                                            lineNumber: 111,
+                                            columnNumber: 37
                                         }, this),
                                         secondaryCtaText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: secondaryCtaLink,
@@ -601,57 +556,34 @@ console.log("System Online");`;
                                             children: secondaryCtaText
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 131,
-                                            columnNumber: 33
+                                            lineNumber: 119,
+                                            columnNumber: 37
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 121,
-                                    columnNumber: 25
+                                    lineNumber: 109,
+                                    columnNumber: 29
                                 }, this),
                                 checklistItems.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-b1134b457700a968" + " " + "flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-slate-600",
+                                    className: "jsx-b1134b457700a968" + " " + "flex flex-wrap items-center gap-3 mt-4",
                                     children: checklistItems.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "jsx-b1134b457700a968" + " " + "flex items-center gap-2",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "jsx-b1134b457700a968" + " " + "flex items-center justify-center w-5 h-5 rounded-full bg-green-100 text-green-600",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
-                                                        className: "h-3 w-3"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 147,
-                                                        columnNumber: 45
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Hero.jsx",
-                                                    lineNumber: 146,
-                                                    columnNumber: 41
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "jsx-b1134b457700a968",
-                                                    children: item
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Hero.jsx",
-                                                    lineNumber: 149,
-                                                    columnNumber: 41
-                                                }, this)
-                                            ]
-                                        }, idx, true, {
+                                            className: "jsx-b1134b457700a968" + " " + "px-5 py-2 rounded-full border border-slate-200 bg-slate-50/50 backdrop-blur-sm text-slate-700 font-medium text-sm shadow-sm",
+                                            children: item
+                                        }, idx, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 145,
+                                            lineNumber: 134,
                                             columnNumber: 37
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 143,
+                                    lineNumber: 132,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Hero.jsx",
-                            lineNumber: 102,
+                            lineNumber: 89,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -667,7 +599,7 @@ console.log("System Online");`;
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 161,
+                                            lineNumber: 147,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$dna$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Dna$3e$__["Dna"], {
@@ -678,7 +610,7 @@ console.log("System Online");`;
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 162,
+                                            lineNumber: 148,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$code$2d$xml$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Code2$3e$__["Code2"], {
@@ -689,7 +621,7 @@ console.log("System Online");`;
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 163,
+                                            lineNumber: 149,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pi$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Pi$3e$__["Pi"], {
@@ -700,7 +632,7 @@ console.log("System Online");`;
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 164,
+                                            lineNumber: 150,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cpu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cpu$3e$__["Cpu"], {
@@ -711,14 +643,14 @@ console.log("System Online");`;
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 165,
+                                            lineNumber: 151,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "jsx-b1134b457700a968" + " " + "absolute top-1/2 left-1/4 w-32 lg:w-40 h-32 lg:h-40 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 168,
+                                            lineNumber: 154,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -728,13 +660,13 @@ console.log("System Online");`;
                                             className: "jsx-b1134b457700a968" + " " + "absolute top-1/4 right-1/4 w-32 lg:w-40 h-32 lg:h-40 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 169,
+                                            lineNumber: 155,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 160,
+                                    lineNumber: 146,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -755,12 +687,12 @@ console.log("System Online");`;
                                                             className: "h-5 w-5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/Hero.jsx",
-                                                            lineNumber: 182,
+                                                            lineNumber: 168,
                                                             columnNumber: 41
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 181,
+                                                        lineNumber: 167,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -771,14 +703,14 @@ console.log("System Online");`;
                                                                 children: "Biochemistry"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 185,
+                                                                lineNumber: 171,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "jsx-b1134b457700a968" + " " + "w-16 h-1.5 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full mb-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 186,
+                                                                lineNumber: 172,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -786,24 +718,24 @@ console.log("System Online");`;
                                                                 children: "Molecular research & data analysis"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 187,
+                                                                lineNumber: 173,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 184,
+                                                        lineNumber: 170,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                lineNumber: 180,
+                                                lineNumber: 166,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 176,
+                                            lineNumber: 162,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -818,12 +750,12 @@ console.log("System Online");`;
                                                             className: "h-6 w-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/Hero.jsx",
-                                                            lineNumber: 199,
+                                                            lineNumber: 185,
                                                             columnNumber: 41
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 198,
+                                                        lineNumber: 184,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -834,7 +766,7 @@ console.log("System Online");`;
                                                                 children: "App Dev"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 202,
+                                                                lineNumber: 188,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -846,12 +778,12 @@ console.log("System Online");`;
                                                                             className: "jsx-b1134b457700a968" + " " + "w-3/4 h-full bg-blue-500"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/Hero.jsx",
-                                                                            lineNumber: 205,
+                                                                            lineNumber: 191,
                                                                             columnNumber: 49
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                                        lineNumber: 204,
+                                                                        lineNumber: 190,
                                                                         columnNumber: 45
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -860,18 +792,18 @@ console.log("System Online");`;
                                                                             className: "jsx-b1134b457700a968" + " " + "w-5/6 h-full bg-indigo-500"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/Hero.jsx",
-                                                                            lineNumber: 208,
+                                                                            lineNumber: 194,
                                                                             columnNumber: 49
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                                        lineNumber: 207,
+                                                                        lineNumber: 193,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 203,
+                                                                lineNumber: 189,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -884,27 +816,27 @@ console.log("System Online");`;
                                                                                 className: "jsx-b1134b457700a968" + " " + "w-1.5 h-1.5 rounded-full bg-red-500"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                                lineNumber: 214,
+                                                                                lineNumber: 200,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 className: "jsx-b1134b457700a968" + " " + "w-1.5 h-1.5 rounded-full bg-yellow-500"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                                lineNumber: 215,
+                                                                                lineNumber: 201,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 className: "jsx-b1134b457700a968" + " " + "w-1.5 h-1.5 rounded-full bg-green-500"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                                lineNumber: 216,
+                                                                                lineNumber: 202,
                                                                                 columnNumber: 49
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                                        lineNumber: 213,
+                                                                        lineNumber: 199,
                                                                         columnNumber: 45
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -915,36 +847,36 @@ console.log("System Online");`;
                                                                                 className: "jsx-b1134b457700a968" + " " + "animate-pulse inline-block w-1 h-2 bg-emerald-400 ml-0.5 align-middle"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                                lineNumber: 220,
+                                                                                lineNumber: 206,
                                                                                 columnNumber: 49
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                                        lineNumber: 218,
+                                                                        lineNumber: 204,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 212,
+                                                                lineNumber: 198,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 201,
+                                                        lineNumber: 187,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                lineNumber: 197,
+                                                lineNumber: 183,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 193,
+                                            lineNumber: 179,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -959,12 +891,12 @@ console.log("System Online");`;
                                                             className: "h-5 w-5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/Hero.jsx",
-                                                            lineNumber: 234,
+                                                            lineNumber: 220,
                                                             columnNumber: 41
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 233,
+                                                        lineNumber: 219,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -975,7 +907,7 @@ console.log("System Online");`;
                                                                 children: "AI Integration"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 237,
+                                                                lineNumber: 223,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -983,7 +915,7 @@ console.log("System Online");`;
                                                                 children: "Processing data models..."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 238,
+                                                                lineNumber: 224,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1006,57 +938,57 @@ console.log("System Online");`;
                                                                             className: "jsx-b1134b457700a968" + " " + "absolute bottom-0 left-0 w-full bg-indigo-500 rounded-t-sm animate-pulse"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/Hero.jsx",
-                                                                            lineNumber: 243,
+                                                                            lineNumber: 229,
                                                                             columnNumber: 53
                                                                         }, this)
                                                                     }, i, false, {
                                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                                        lineNumber: 242,
+                                                                        lineNumber: 228,
                                                                         columnNumber: 49
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                                lineNumber: 239,
+                                                                lineNumber: 225,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/Hero.jsx",
-                                                        lineNumber: 236,
+                                                        lineNumber: 222,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/Hero.jsx",
-                                                lineNumber: 232,
+                                                lineNumber: 218,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Hero.jsx",
-                                            lineNumber: 228,
+                                            lineNumber: 214,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Hero.jsx",
-                                    lineNumber: 173,
+                                    lineNumber: 159,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Hero.jsx",
-                            lineNumber: 157,
+                            lineNumber: 143,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Hero.jsx",
-                    lineNumber: 99,
+                    lineNumber: 86,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Hero.jsx",
-                lineNumber: 98,
+                lineNumber: 85,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1066,7 +998,7 @@ console.log("System Online");`;
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Hero.jsx",
-        lineNumber: 91,
+        lineNumber: 84,
         columnNumber: 9
     }, this);
 }
@@ -1204,130 +1136,115 @@ __turbopack_context__.s([
     ()=>Profile
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-ssr] (ecmascript) <export default as MapPin>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/agencyConfig.js [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
 ;
-function Profile() {
+;
+function Profile({ blockData }) {
     const { profile } = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$agencyConfig$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["agencyConfig"];
+    // Use Notion blockData for overrides if available, otherwise fallback to agencyConfig
+    const title = blockData?.title || "Tentang Saya";
+    const bioText = blockData?.subtitle || profile.bio;
+    // Configurable pill badges using Notion checklists or fallback
+    const rawBadges = blockData?.checklists || `${profile.role}, 🎓 IPB University, 📍 ${profile.location}`;
+    const badges = rawBadges.split(/,|\n/).map((c)=>c.trim()).filter(Boolean);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "about",
-        className: "py-20 bg-slate-50",
+        className: "py-16 md:py-24 bg-transparent border-t border-slate-100/50 backdrop-blur-sm",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8",
+            className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col md:flex-row items-center gap-8 md:gap-16",
+                className: "flex flex-col md:flex-row items-center md:items-stretch gap-12 lg:gap-24",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-shrink-0",
+                        className: "w-full md:w-5/12 lg:w-4/12 flex-shrink-0 flex justify-center md:justify-end",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gray-200",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: profile.photoUrl,
+                            className: "relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl pb-[120%] bg-slate-200",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                src: blockData?.media || profile.photoUrl,
                                 alt: profile.name,
-                                className: "w-full h-full object-cover",
-                                onError: (e)=>{
-                                    e.target.onerror = null;
-                                    e.target.style.display = 'none';
-                                    e.target.parentNode.classList.add('flex', 'items-center', 'justify-center', 'text-gray-400');
-                                    e.target.parentNode.innerText = 'Foto Profil';
-                                }
+                                fill: true,
+                                sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+                                className: "object-cover object-top",
+                                priority: true
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 17,
+                                lineNumber: 27,
                                 columnNumber: 29
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/Profile.jsx",
-                            lineNumber: 15,
+                            lineNumber: 25,
                             columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Profile.jsx",
-                        lineNumber: 13,
+                        lineNumber: 24,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "text-center md:text-left",
+                        className: "w-full md:w-7/12 lg:w-8/12 flex flex-col justify-center text-center md:text-left",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-3xl font-bold text-slate-900 mb-2",
-                                children: "Siapa di balik KrisDigital?"
+                                className: "text-4xl lg:text-5xl font-extrabold text-[#1a2f4c] mb-8 tracking-tight",
+                                children: title
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 32,
-                                columnNumber: 25
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-xl text-blue-600 font-semibold mb-4",
-                                children: [
-                                    profile.name,
-                                    " — ",
-                                    profile.role
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 33,
-                                columnNumber: 25
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-600 text-lg mb-6 leading-relaxed",
-                                children: [
-                                    '"',
-                                    profile.bio,
-                                    '"'
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 35,
+                                lineNumber: 40,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "inline-flex items-center gap-2 text-gray-500 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-100",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
-                                        className: "h-5 w-5 text-red-500"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Profile.jsx",
-                                        lineNumber: 40,
-                                        columnNumber: 29
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-sm",
-                                        children: profile.location
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Profile.jsx",
-                                        lineNumber: 41,
-                                        columnNumber: 29
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                className: "prose prose-lg text-slate-600 mb-10 max-w-none leading-relaxed",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    children: bioText
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Profile.jsx",
+                                    lineNumber: 45,
+                                    columnNumber: 29
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Profile.jsx",
-                                lineNumber: 39,
+                                lineNumber: 44,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex flex-wrap items-center justify-center md:justify-start gap-4",
+                                children: badges.map((badge, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-blue-200/50 text-[#1a2f4c] text-base font-medium shadow-sm",
+                                        children: badge
+                                    }, idx, false, {
+                                        fileName: "[project]/src/components/Profile.jsx",
+                                        lineNumber: 51,
+                                        columnNumber: 33
+                                    }, this))
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/Profile.jsx",
+                                lineNumber: 49,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Profile.jsx",
-                        lineNumber: 31,
+                        lineNumber: 39,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Profile.jsx",
-                lineNumber: 12,
+                lineNumber: 21,
                 columnNumber: 17
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/Profile.jsx",
-            lineNumber: 11,
+            lineNumber: 20,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Profile.jsx",
-        lineNumber: 10,
+        lineNumber: 19,
         columnNumber: 9
     }, this);
 }
