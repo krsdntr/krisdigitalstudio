@@ -33,7 +33,8 @@ const componentMap = {
     'Stats': Stats
 };
 
-export const revalidate = 60; // Cache landing page blocks for 60 seconds
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
     // Fetch dynamic sections driven by Notion

@@ -8,7 +8,8 @@ export const metadata = {
     description: 'Insight, panduan, dan tips terbaru seputar pengembangan website dan bisnis digital.',
 };
 
-export const revalidate = 60;
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
     const posts = await getBlogPosts();

@@ -2,10 +2,10 @@
   "/_global-error/page": "app/_global-error/page.js",
   "/_not-found/page": "app/_not-found/page.js",
   "/blog/[slug]/page": "app-edge-has-no-entrypoint",
-  "/blog/page": "app/blog/page.js",
-  "/page": "app/page.js",
+  "/blog/page": "app-edge-has-no-entrypoint",
+  "/page": "app-edge-has-no-entrypoint",
   "/products/[slug]/page": "app-edge-has-no-entrypoint",
-  "/products/page": "app/products/page.js",
+  "/products/page": "app-edge-has-no-entrypoint",
   "/projects/[slug]/page": "app-edge-has-no-entrypoint",
-  "/projects/page": "app/projects/page.js"
+  "/projects/page": "app-edge-has-no-entrypoint"
 }

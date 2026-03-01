@@ -1167,10 +1167,10 @@ async function Footer() {
 __turbopack_context__.s([
     "default",
     ()=>BlogPost,
+    "dynamic",
+    ()=>dynamic,
     "generateMetadata",
     ()=>generateMetadata,
-    "revalidate",
-    ()=>revalidate,
     "runtime",
     ()=>runtime
 ]);
@@ -1205,7 +1205,7 @@ async function generateMetadata({ params }) {
         description: post.description || `Artikel tentang ${post.title}`
     };
 }
-const revalidate = 60;
+const dynamic = 'force-dynamic';
 async function BlogPost({ params }) {
     const { slug } = await params;
     const allPosts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$notion$2e$js__$5b$app$2d$edge$2d$rsc$5d$__$28$ecmascript$29$__["getBlogPosts"])();

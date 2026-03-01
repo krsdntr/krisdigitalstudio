@@ -8,7 +8,8 @@ export const metadata = {
     description: 'Lihat bagaimana kami membantu bisnis lain berkembang secara digital melalui web dan optimasi.',
 };
 
-export const revalidate = 60;
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 export default async function ProjectsPage() {
     const projects = await getProjects();

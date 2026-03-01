@@ -1,21 +1,22 @@
 {
-  "node": {
+  "node": {},
+  "edge": {
     "40a4ebbacabae889d7ef99cad679c041f9eb9a1e04": {
       "workers": {
         "app/blog/page": {
-          "moduleId": 45891,
+          "moduleId": 89307,
           "async": false,
           "exportedName": "fetchMorePosts",
           "filename": "src/app/actions/notion.js"
         },
         "app/products/page": {
-          "moduleId": 68555,
+          "moduleId": 22026,
           "async": false,
           "exportedName": "fetchMorePosts",
           "filename": "src/app/actions/notion.js"
         },
         "app/projects/page": {
-          "moduleId": 54433,
+          "moduleId": 4248,
           "async": false,
           "exportedName": "fetchMorePosts",
           "filename": "src/app/actions/notion.js"
@@ -32,19 +33,19 @@
     "4039a072a09b608d4b5ed4d7815293f4f52bcdb9e7": {
       "workers": {
         "app/blog/page": {
-          "moduleId": 45891,
+          "moduleId": 89307,
           "async": false,
           "exportedName": "fetchMoreProjects",
           "filename": "src/app/actions/notion.js"
         },
         "app/products/page": {
-          "moduleId": 68555,
+          "moduleId": 22026,
           "async": false,
           "exportedName": "fetchMoreProjects",
           "filename": "src/app/actions/notion.js"
         },
         "app/projects/page": {
-          "moduleId": 54433,
+          "moduleId": 4248,
           "async": false,
           "exportedName": "fetchMoreProjects",
           "filename": "src/app/actions/notion.js"
@@ -61,19 +62,19 @@
     "4072a31900b6321d1c97a1d2abffc01cc93dfa15bd": {
       "workers": {
         "app/blog/page": {
-          "moduleId": 45891,
+          "moduleId": 89307,
           "async": false,
           "exportedName": "fetchMoreProducts",
           "filename": "src/app/actions/notion.js"
         },
         "app/products/page": {
-          "moduleId": 68555,
+          "moduleId": 22026,
           "async": false,
           "exportedName": "fetchMoreProducts",
           "filename": "src/app/actions/notion.js"
         },
         "app/projects/page": {
-          "moduleId": 54433,
+          "moduleId": 4248,
           "async": false,
           "exportedName": "fetchMoreProducts",
           "filename": "src/app/actions/notion.js"
@@ -88,6 +89,5 @@
       "exportedName": "fetchMoreProducts"
     }
   },
-  "edge": {},
   "encryptionKey": "fFcEkJRIgT2Vv2nRINwsGr90SCObHT5+g1M0HcSIMlM="
 }

@@ -8,7 +8,8 @@ export const metadata = {
     description: 'Katalog template, script, dan produk digital untuk produktivitas Anda.',
 };
 
-export const revalidate = 60;
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 export default async function ProductsPage() {
     const products = await getDigitalProducts();
