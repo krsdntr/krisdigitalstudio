@@ -1,4 +1,4 @@
-import { makePage } from '@keystatic/astro/api';
+import { makeHandler } from '@keystatic/astro/api';
 import keystaticConfig from '../../../../keystatic.config';
 
-export const all = makePage(keystaticConfig);
+export const all = makeHandler({ config: keystaticConfig });
