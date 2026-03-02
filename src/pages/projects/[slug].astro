@@ -2,24 +2,21 @@
 import Layout from '../../layouts/Layout.astro';
 import HeaderClient from "../../components/HeaderClient.jsx";
 import Footer from "../../components/Footer.jsx";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { getItemDetails, getProjects, getSystemStyles } from '../../lib/notion.js';
+import { getSystemStyles } from '../../lib/keystatic.js';
+import { getCollection, render } from 'astro:content';
 
-export const prerender = false;
-
-const { slug } = Astro.params;
-
-const allProjects = await getProjects();
-const projectMeta = allProjects.items.find((p: any) => p.slug === slug);
-const projectContent = await getItemDetails(slug as string, import.meta.env.NOTION_PROJECT_DATABASE_ID);
-const styles = await getSystemStyles();
-
-if (!projectMeta || !projectContent) {
-    return Astro.redirect('/404');
+export async function getStaticPaths() {
+    const entries = await getCollection('projects');
+    return entries.map(entry => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
 }
 
-const project = { ...projectMeta, content: projectContent.content };
+const { entry } = Astro.props;
+const styles = await getSystemStyles();
+const project = { ...entry.data, slug: entry.id };
+const { Content } = await render(entry);
 ---
 
 <Layout title={`${project.title} - Kris Project`} description={project.description || `Detail project: ${project.title}`}>
@@ -101,7 +98,7 @@ const project = { ...projectMeta, content: projectContent.content };
                             prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
                             prose-th:bg-slate-100 prose-th:p-4 prose-th:font-semibold prose-th:text-slate-900 prose-th:border prose-th:border-slate-200
                             prose-td:p-4 prose-td:border prose-td:border-slate-200 prose-td:text-slate-600">
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.content}</ReactMarkdown>
+                            <Content />
                         </div>
                     </div>
                 </div>

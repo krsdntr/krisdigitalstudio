@@ -2,26 +2,21 @@
 import Layout from '../../layouts/Layout.astro';
 import HeaderClient from "../../components/HeaderClient.jsx";
 import Footer from "../../components/Footer.jsx";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { getItemDetails, getBlogPosts, getSystemStyles } from '../../lib/notion.js';
+import { getSystemStyles } from '../../lib/keystatic.js';
+import { getCollection, render } from 'astro:content';
 
-export const prerender = false;
-
-const { slug } = Astro.params;
-
-const allPosts = await getBlogPosts();
-const postMeta = allPosts.items.find((p: any) => p.slug === slug);
-const postContent = await getItemDetails(slug as string, import.meta.env.NOTION_BLOG_DATABASE_ID);
-const styles = await getSystemStyles();
-
-if (!postMeta || !postContent) {
-    console.log(`[DEBUG Astro] /blog/${slug} returning 404. Meta: ${!!postMeta}, Content: ${!!postContent}`);
-    return Astro.redirect('/404');
+export async function getStaticPaths() {
+    const entries = await getCollection('blog');
+    return entries.map(entry => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
 }
 
-console.log(`[DEBUG Astro] Ready to render /blog/${slug}. Content length: ${postContent.content ? postContent.content.length : 0}`);
-const post = { ...postMeta, content: postContent.content };
+const { entry } = Astro.props;
+const styles = await getSystemStyles();
+const post = { ...entry.data, slug: entry.id };
+const { Content } = await render(entry);
 ---
 
 <Layout title={`${post.title} - Kris`} description={post.description || `Artikel tentang ${post.title}`}>
@@ -74,7 +69,7 @@ const post = { ...postMeta, content: postContent.content };
                             prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
                             prose-th:bg-slate-100 prose-th:p-4 prose-th:font-semibold prose-th:text-slate-900 prose-th:border prose-th:border-slate-200
                             prose-td:p-4 prose-td:border prose-td:border-slate-200 prose-td:text-slate-600">
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+                            <Content />
                         </div>
                     </div>
                 </div>

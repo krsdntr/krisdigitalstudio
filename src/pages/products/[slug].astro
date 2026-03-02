@@ -2,24 +2,21 @@
 import Layout from '../../layouts/Layout.astro';
 import HeaderClient from "../../components/HeaderClient.jsx";
 import Footer from "../../components/Footer.jsx";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { getItemDetails, getDigitalProducts, getSystemStyles } from '../../lib/notion.js';
+import { getSystemStyles } from '../../lib/keystatic.js';
+import { getCollection, render } from 'astro:content';
 
-export const prerender = false;
-
-const { slug } = Astro.params;
-
-const allProducts = await getDigitalProducts();
-const productMeta = allProducts.items.find((p: any) => p.slug === slug);
-const productContent = await getItemDetails(slug as string, import.meta.env.NOTION_PRODUCT_DATABASE_ID);
-const styles = await getSystemStyles();
-
-if (!productMeta || !productContent) {
-    return Astro.redirect('/404');
+export async function getStaticPaths() {
+    const entries = await getCollection('products');
+    return entries.map(entry => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
 }
 
-const product = { ...productMeta, content: productContent.content };
+const { entry } = Astro.props;
+const styles = await getSystemStyles();
+const product = { ...entry.data, slug: entry.id };
+const { Content } = await render(entry);
 
 const priceLabel = styles.product_price_label?.value || "Harga Pembelian Sekali Bayar";
 const buyBtnText = styles.product_buy_button?.value || "Beli Sekarang di Lynk.id/Sejoli";
@@ -144,9 +141,7 @@ const secureText = styles.product_secure_text?.value || "Pembayaran Diproses Sec
                                         prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
                                         prose-th:bg-slate-100 prose-th:p-4 prose-th:font-semibold prose-th:text-slate-900 prose-th:border prose-th:border-slate-200
                                         prose-td:p-4 prose-td:border prose-td:border-slate-200 prose-td:text-slate-600">
-                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                            {product.content}
-                                        </ReactMarkdown>
+                                        <Content />
                                     </div>
                                 </div>
                             )}

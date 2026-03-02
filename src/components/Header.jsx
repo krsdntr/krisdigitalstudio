@@ -1,4 +1,4 @@
-import { getSystemStyles } from "../lib/notion";
+import { getSystemStyles } from "../lib/keystatic";
 import HeaderClient from "./HeaderClient";
 
 export default async function Header() {

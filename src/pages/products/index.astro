@@ -4,10 +4,13 @@ import Layout from '../../layouts/Layout.astro';
 import HeaderClient from "../../components/HeaderClient.jsx";
 import Footer from "../../components/Footer.jsx";
 import ProductsClient from "../../components/ProductsClient.jsx";
-import { getDigitalProducts, getLandingBlocks, getSystemStyles } from "../../lib/notion.js";
+import { getLandingBlocks, getSystemStyles } from "../../lib/keystatic.js";
+import { getCollection } from 'astro:content';
 
 const styles = await getSystemStyles();
-const products = await getDigitalProducts();
+const allProducts = await getCollection('products');
+allProducts.sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
+const products = { items: allProducts.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover })), nextCursor: null, hasMore: false };
 const blocks = await getLandingBlocks();
 const productsBlock = blocks.find((b: { componentName: string }) => b.componentName === 'Products');
 const title = productsBlock?.title || 'Produk Digital';

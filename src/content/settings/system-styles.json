@@ -1,0 +1,174 @@
+{
+  "properties": [
+    {
+      "key": "brand_whatsapp",
+      "value": "6285186816062",
+      "type": "text"
+    },
+    {
+      "key": "primary_color",
+      "value": "#2563EB",
+      "type": "color"
+    },
+    {
+      "key": "background_color",
+      "value": "#F8FAFC",
+      "type": "color"
+    },
+    {
+      "key": "site_name",
+      "value": "Kris.",
+      "type": "text"
+    },
+    {
+      "key": "footer_text",
+      "value": "© 2026 Krisdiantoro. All rights reserved.",
+      "type": "text"
+    },
+    {
+      "key": "accent_color",
+      "value": "#38BDF8",
+      "type": "color"
+    },
+    {
+      "key": "whatsapp_number",
+      "value": "6281234567890",
+      "type": "text"
+    },
+    {
+      "key": "site_description",
+      "value": "Building intelligent web applications and digital workspaces to accelerate academic research and data management",
+      "type": "text"
+    },
+    {
+      "key": "logo_url",
+      "value": "",
+      "type": "url"
+    },
+    {
+      "key": "brand_instagram",
+      "value": "krisdntro",
+      "type": "text"
+    },
+    {
+      "key": "brand_name",
+      "value": "Kris.",
+      "type": "text"
+    },
+    {
+      "key": "nav_link_3_url",
+      "value": "/blog",
+      "type": "text"
+    },
+    {
+      "key": "header_cta_text",
+      "value": "Hubungi Saya",
+      "type": "text"
+    },
+    {
+      "key": "text_color",
+      "value": "#334155",
+      "type": "color"
+    },
+    {
+      "key": "footer_copyright",
+      "value": "© 2026 Kris. All rights reserved.",
+      "type": "text"
+    },
+    {
+      "key": "font_family_heading",
+      "value": "Inter, sans-serif",
+      "type": "text"
+    },
+    {
+      "key": "instagram_username",
+      "value": "krisdntro",
+      "type": "text"
+    },
+    {
+      "key": "nav_link_2_url",
+      "value": "/products",
+      "type": "text"
+    },
+    {
+      "key": "dark_mode_color",
+      "value": "#0F172A",
+      "type": "color"
+    },
+    {
+      "key": "brand_tagline",
+      "value": "Building intelligent web applications and digital workspaces to accelerate academic research and data management",
+      "type": "text"
+    },
+    {
+      "key": "meta_image_url",
+      "value": "",
+      "type": "url"
+    },
+    {
+      "key": "nav_link_2_text",
+      "value": "Products",
+      "type": "text"
+    },
+    {
+      "key": "nav_link_1_text",
+      "value": "Projects",
+      "type": "text"
+    },
+    {
+      "key": "email_address",
+      "value": "krisdntro@gmail.com",
+      "type": "text"
+    },
+    {
+      "key": "font_family_body",
+      "value": "Inter, sans-serif",
+      "type": "text"
+    },
+    {
+      "key": "hero_image_url",
+      "value": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+      "type": "url"
+    },
+    {
+      "key": "nav_link_3_text",
+      "value": "Blog",
+      "type": "text"
+    },
+    {
+      "key": "nav_link_1_url",
+      "value": "/projects",
+      "type": "text"
+    },
+    {
+      "key": "secondary_color",
+      "value": "#1E293B",
+      "type": "color"
+    },
+    {
+      "key": "product_secure_text",
+      "value": "Pembayaran Diproses Secara Aman",
+      "type": "text"
+    },
+    {
+      "key": "product_free_button",
+      "value": "Dapatkan Gratis Sekarang ",
+      "type": "text"
+    },
+    {
+      "key": "product_price_label",
+      "value": "Harga",
+      "type": "text"
+    },
+    {
+      "key": "header_cta_url",
+      "value": "https://instagram.com/krisdntro",
+      "type": "url"
+    },
+    {
+      "key": "product_buy_button",
+      "value": "Beli Sekarang",
+      "type": "text"
+    }
+  ]
+}

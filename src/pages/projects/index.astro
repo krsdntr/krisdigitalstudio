@@ -4,10 +4,13 @@ import Layout from '../../layouts/Layout.astro';
 import HeaderClient from "../../components/HeaderClient.jsx";
 import Footer from "../../components/Footer.jsx";
 import ProjectsClient from "../../components/ProjectsClient.jsx";
-import { getProjects, getLandingBlocks, getSystemStyles } from "../../lib/notion.js";
+import { getLandingBlocks, getSystemStyles } from "../../lib/keystatic.js";
+import { getCollection } from 'astro:content';
 
 const styles = await getSystemStyles();
-const projects = await getProjects();
+const allProjects = await getCollection('projects');
+allProjects.sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
+const projects = { items: allProjects.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover })), nextCursor: null, hasMore: false };
 const blocks = await getLandingBlocks();
 const projectsBlock = blocks.find((b: { componentName: string }) => b.componentName === 'Projects');
 const title = projectsBlock?.title || 'Karya & Project Kami';
