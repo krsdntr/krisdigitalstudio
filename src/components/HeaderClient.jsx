@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, X, Rocket } from "lucide-react";
-import Link from 'next/link';
+
 import { useState } from "react";
 import { agencyConfig } from "../data/agencyConfig";
 
@@ -32,12 +32,12 @@ export default function HeaderClient({ styles }) {
         <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <Link href="/" className="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    <a href="/" className="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition-opacity">
                         <Rocket className="h-6 w-6 text-blue-600" />
                         <span className="font-bold text-xl text-slate-800 tracking-tight">
                             {brandName}
                         </span>
-                    </Link>
+                    </a>
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center space-x-8">
@@ -46,7 +46,7 @@ export default function HeaderClient({ styles }) {
                             item.url.startsWith('/#') ? (
                                 <a key={i} href={item.url} className="text-gray-600 hover:text-blue-600 transition-colors">{item.text}</a>
                             ) : (
-                                <Link key={i} href={item.url} className="text-gray-600 hover:text-blue-600 transition-colors">{item.text}</Link>
+                                <a key={i} href={item.url} className="text-gray-600 hover:text-blue-600 transition-colors">{item.text}</a>
                             )
                         ))}
                         <a
@@ -79,7 +79,7 @@ export default function HeaderClient({ styles }) {
                             item.url.startsWith('/#') ? (
                                 <a key={i} href={item.url} onClick={() => setIsOpen(false)} className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md">{item.text}</a>
                             ) : (
-                                <Link key={i} href={item.url} onClick={() => setIsOpen(false)} className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md">{item.text}</Link>
+                                <a key={i} href={item.url} onClick={() => setIsOpen(false)} className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md">{item.text}</a>
                             )
                         ))}
                         <a

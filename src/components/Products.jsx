@@ -1,12 +1,7 @@
-import { getDigitalProducts } from "../lib/notion";
 import { ArrowRight, Package } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
 
-export default async function Products({ blockData }) {
-    const allProducts = await getDigitalProducts();
-    const products = allProducts.items.slice(0, 3);
 
+export default function Products({ blockData, products = [] }) {
     const title = blockData?.title || "Produk Digital Menarik";
     const subtitle = blockData?.subtitle || "Tingkatkan produktivitas Anda dengan aset digital siap pakai.";
 
@@ -20,13 +15,13 @@ export default async function Products({ blockData }) {
                     </div>
                     {products.length > 0 && (
                         <div className="hidden md:block">
-                            <Link
+                            <a
                                 href="/products"
                                 className="group flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-800 transition-colors"
                             >
                                 Lihat Semua Produk
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </Link>
+                            </a>
                         </div>
                     )}
                 </div>
@@ -54,15 +49,13 @@ export default async function Products({ blockData }) {
                                     )}
                                 </div>
 
-                                <Link href={`/products/${product.slug}`} className="relative h-56 bg-slate-100 w-full overflow-hidden block border-b border-gray-100 p-4 group/image">
+                                <a href={`/products/${product.slug}`} className="relative h-56 bg-slate-100 w-full overflow-hidden block border-b border-gray-100 p-4 group/image">
                                     <div className="relative w-full h-full rounded-xl overflow-hidden shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white border border-black/5 transform transition-transform duration-500 group-hover:scale-[1.02]">
                                         {product.cover ? (
-                                            <Image
+                                            <img
                                                 src={product.cover}
                                                 alt={product.title}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center bg-slate-50">
@@ -78,13 +71,13 @@ export default async function Products({ blockData }) {
                                             </span>
                                         </div>
                                     )}
-                                </Link>
+                                </a>
 
                                 <div className="p-6 flex flex-col flex-grow">
                                     <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2" title={product.title}>
-                                        <Link href={`/products/${product.slug}`} className="hover:text-blue-600 transition-colors">
+                                        <a href={`/products/${product.slug}`} className="hover:text-blue-600 transition-colors">
                                             {product.title}
-                                        </Link>
+                                        </a>
                                     </h3>
 
                                     <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
@@ -130,13 +123,13 @@ export default async function Products({ blockData }) {
 
                 {products.length > 0 && (
                     <div className="mt-8 text-center md:hidden">
-                        <Link
+                        <a
                             href="/products"
                             className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full font-semibold hover:bg-slate-800 transition-colors"
                         >
                             Lihat Semua
                             <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        </a>
                     </div>
                 )}
             </div>

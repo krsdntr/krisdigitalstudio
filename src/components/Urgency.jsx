@@ -2,8 +2,14 @@
 import { AlertTriangle, Timer } from "lucide-react";
 import { agencyConfig } from "../data/agencyConfig";
 
-export default function Urgency() {
-    const { title, subtitle, deadline, slotsLeft } = agencyConfig.urgency;
+export default function Urgency({ blockData }) {
+    const title = blockData?.title || agencyConfig.urgency.title;
+    const subtitle = blockData?.subtitle || agencyConfig.urgency.subtitle;
+
+    // Parse checklists for slots and deadline
+    const checklists = blockData?.checklists ? blockData.checklists.split(/,|\n/) : [];
+    const slotsLeft = checklists[0]?.trim() || agencyConfig.urgency.slotsLeft;
+    const deadline = checklists[1]?.trim() || agencyConfig.urgency.deadline;
 
     return (
         <section className="py-12 bg-yellow-50 border-y border-yellow-200">

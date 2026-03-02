@@ -2,14 +2,17 @@
 import { CheckCircle2 } from "lucide-react";
 import { agencyConfig } from "../data/agencyConfig";
 
-export default function Process() {
+export default function Process({ blockData }) {
+    const title = blockData?.title || "Cara Kerja Simpel & Transparan";
+    const subtitle = blockData?.subtitle || "Tidak perlu pusing coding atau desain. Ikuti 5 langkah mudah ini.";
+
     return (
         <section id="process" className="py-20 bg-slate-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Cara Kerja Simpel & Transparan</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{title}</h2>
                     <p className="text-lg text-gray-600">
-                        Tidak perlu pusing coding atau desain. Ikuti 5 langkah mudah ini.
+                        {subtitle}
                     </p>
                 </div>
 

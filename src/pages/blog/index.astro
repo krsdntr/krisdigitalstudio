@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeaderClient from "../../components/HeaderClient.jsx";
+import Footer from "../../components/Footer.jsx";
+import ArticlesClient from "../../components/ArticlesClient.jsx";
+import { getBlogPosts, getLandingBlocks, getSystemStyles } from "../../lib/notion.js";
+
+const styles = await getSystemStyles();
+const posts = await getBlogPosts();
+const blocks = await getLandingBlocks();
+const articlesBlock = blocks.find((b: { componentName: string }) => b.componentName === 'Articles');
+const title = articlesBlock?.title || 'Blog & Insight';
+const subtitle = articlesBlock?.subtitle || 'Pelajari strategi terbaru untuk mengembangkan bisnis Anda di era digital.';
+---
+
+<Layout title="Blog & Artikel - Kris" description="Insight, panduan, dan tips terbaru seputar pengembangan website dan bisnis digital.">
+    <div class="min-h-screen bg-slate-50">
+        <HeaderClient styles={styles} client:load />
+        <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+                    {title}
+                </h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {subtitle}
+                </p>
+            </div>
+
+            <ArticlesClient initialPosts={posts} client:load />
+        </main>
+        <Footer />
+    </div>
+</Layout>

@@ -6,16 +6,18 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { agencyConfig } from "../data/agencyConfig";
 
-export default function FAQ() {
+export default function FAQ({ blockData }) {
     const [openIndex, setOpenIndex] = useState(null);
+    const title = blockData?.title || "Pertanyaan Umum";
+    const subtitle = blockData?.subtitle || "Jawaban untuk hal-hal yang sering ditanyakan calon klien.";
 
     return (
         <section id="faq" className="py-20 bg-white">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Pertanyaan Umum</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{title}</h2>
                     <p className="text-lg text-gray-600">
-                        Jawaban untuk hal-hal yang sering ditanyakan calon klien.
+                        {subtitle}
                     </p>
                 </div>
 

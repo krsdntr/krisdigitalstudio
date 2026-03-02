@@ -1,9 +1,7 @@
 import { Instagram, Smartphone } from "lucide-react";
 import { agencyConfig } from "../data/agencyConfig";
-import { getSystemStyles } from "../lib/notion";
 
-export default async function Footer() {
-    const styles = await getSystemStyles();
+export default function Footer({ styles = {} }) {
     const brandName = styles['brand_name']?.value || agencyConfig.brand.name;
     const tagline = styles['brand_tagline']?.value || agencyConfig.brand.tagline;
     const instagram = styles['brand_instagram']?.value || agencyConfig.brand.instagram;

@@ -2,13 +2,15 @@
 import { Check, HelpCircle } from "lucide-react";
 import { agencyConfig } from "../data/agencyConfig";
 
-export default function Pricing() {
+export default function Pricing({ blockData }) {
+    const title = blockData?.title || "Investasi Hemat, Balik Modal Cepat";
+    const subtitle = blockData?.subtitle || "Pilih paket yang sesuai dengan budget dan target bisnis Anda. Tanpa biaya tersembunyi.";
     return (
         <section id="pricing" className="py-20 bg-slate-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Investasi Hemat, Balik Modal Cepat</h2>
-                    <p className="text-lg text-gray-600">Pilih paket yang sesuai dengan budget dan target bisnis Anda. Tanpa biaya tersembunyi.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{title}</h2>
+                    <p className="text-lg text-gray-600">{subtitle}</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">

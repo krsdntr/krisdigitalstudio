@@ -1,30 +1,22 @@
-import { getBlogPosts, getProjects, getDigitalProducts } from '../lib/notion';
 import { PenTool, Briefcase, Box } from 'lucide-react';
 
-export default async function Stats({ blockData }) {
+export default function Stats({ blockData, articlesCount = 0, projectsCount = 0, productsCount = 0 }) {
     // We can use blockData to override titles if provided from Notion
     const sectionTitle = blockData?.title || "Jejak Digital Kris";
     const sectionSubtitle = blockData?.subtitle || "Angka nyata dari karya dan eksplorasi teknologi yang terus berkembang setiap harinya.";
 
-    // Fetch counts concurrently for performance
-    const [articles, projects, products] = await Promise.all([
-        getBlogPosts(),
-        getProjects(),
-        getDigitalProducts()
-    ]);
-
     const stats = [
         {
             label: "Articles Published",
-            value: articles.items?.length || 0,
+            value: articlesCount,
         },
         {
             label: "Projects Completed",
-            value: projects.items?.length || 0,
+            value: projectsCount,
         },
         {
             label: "Digital Products",
-            value: products.items?.length || 0,
+            value: productsCount,
         }
     ];
 

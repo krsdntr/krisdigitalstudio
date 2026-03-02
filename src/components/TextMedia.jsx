@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+
 import ReactMarkdown from 'react-markdown';
 
 export default function TextMedia({ blockData }) {
@@ -31,13 +30,13 @@ export default function TextMedia({ blockData }) {
                         </div>
 
                         {ctaText && (
-                            <Link
+                            <a
                                 href={ctaLink}
                                 className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-8 py-3.5 rounded-full font-bold hover:bg-blue-600 transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                             >
                                 {ctaText}
                                 <ArrowRight className="w-5 h-5" />
-                            </Link>
+                            </a>
                         )}
                     </div>
 
@@ -45,12 +44,10 @@ export default function TextMedia({ blockData }) {
                     <div className="w-full lg:w-1/2">
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] group">
                             <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10 duration-500 rounded-2xl"></div>
-                            <Image
+                            <img
                                 src={imageUrl}
                                 alt={title}
-                                fill
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                         </div>
                     </div>

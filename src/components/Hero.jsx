@@ -246,7 +246,8 @@ console.log("System Online");`;
             </div>
 
             {/* Global Keyframes for the inline animation styles */}
-            <style jsx global>{`
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @keyframes float-container {
                     0%, 100% { transform: translateY(0); }
                     50% { transform: translateY(-15px); }
@@ -259,7 +260,7 @@ console.log("System Online");`;
                 .-translate-z-10 { transform: translateZ(-40px); }
                 .translate-z-10 { transform: translateZ(40px); }
                 .-translate-z-5 { transform: translateZ(-20px); }
-            `}</style>
+            `}} />
         </section>
     );
 }

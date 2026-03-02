@@ -2,7 +2,9 @@
 import { Clock, TrendingDown, XCircle } from "lucide-react";
 import { agencyConfig } from "../data/agencyConfig";
 
-export default function Problem() {
+export default function Problem({ blockData }) {
+    const title = blockData?.title || agencyConfig.problem.title;
+    const subtitle = blockData?.subtitle;
     const icons = {
         Clock: Clock,
         TrendingDown: TrendingDown,
@@ -14,8 +16,9 @@ export default function Problem() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                        {agencyConfig.problem.title}
+                        {title}
                     </h2>
+                    {subtitle && <p className="text-lg text-gray-600 mt-2 mb-4">{subtitle}</p>}
                     <div className="w-24 h-1 bg-red-500 mx-auto rounded-full"></div>
                 </div>
 

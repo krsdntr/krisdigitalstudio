@@ -1,9 +1,8 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
-import { cache } from 'react';
 
 const notion = new Client({
-    auth: process.env.NOTION_SECRET,
+    auth: import.meta.env.NOTION_SECRET,
 });
 
 const n2m = new NotionToMarkdown({ notionClient: notion });
@@ -26,8 +25,8 @@ const getCoverUrl = (item) => item.cover?.external?.url || item.cover?.file?.url
 const getFileUrl = (property) => property?.files?.[0]?.file?.url || property?.files?.[0]?.external?.url || '';
 
 // 1. Fetch System Styles
-export const getSystemStyles = cache(async () => {
-    const databaseId = process.env.NOTION_STYLES_DATABASE_ID;
+export const getSystemStyles = async () => {
+    const databaseId = import.meta.env.NOTION_STYLES_DATABASE_ID;
     if (!databaseId) return {};
 
     try {
@@ -57,11 +56,11 @@ export const getSystemStyles = cache(async () => {
         console.error(`Error fetching System Styles:`, error.message || error, error.cause || '');
         return {};
     }
-});
+};
 
 // 2. Fetch Landing Page Blocks
-export const getLandingBlocks = cache(async () => {
-    const databaseId = process.env.NOTION_LANDING_DATABASE_ID;
+export const getLandingBlocks = async () => {
+    const databaseId = import.meta.env.NOTION_LANDING_DATABASE_ID;
     if (!databaseId) return [];
 
     try {
@@ -99,10 +98,10 @@ export const getLandingBlocks = cache(async () => {
         console.error(`Error fetching Landing Page Blocks:`, error.message || error, error.cause || '');
         return [];
     }
-});
+};
 
 // 3/4/5. Generic Fetch Content Items (Blog, Project, Products)
-export const getPublishedItems = cache(async (databaseId, customMapper = null, options = {}) => {
+export const getPublishedItems = async (databaseId, customMapper = null, options = {}) => {
     if (!databaseId) return { items: [], nextCursor: null, hasMore: false };
 
     const { startCursor = undefined, pageSize = 100 } = options;
@@ -153,11 +152,11 @@ export const getPublishedItems = cache(async (databaseId, customMapper = null, o
         console.error(`Error fetching from database ${databaseId}:`, error);
         return { items: [], nextCursor: null, hasMore: false };
     }
-});
+};
 
 // Specific Mappers for the 3 Content Types
 export const getBlogPosts = async (options = {}) => {
-    return getPublishedItems(process.env.NOTION_BLOG_DATABASE_ID, (item) => ({
+    return getPublishedItems(import.meta.env.NOTION_BLOG_DATABASE_ID, (item) => ({
         date: getDateStr(item.properties['Published Date']),
         category: getSelectName(item.properties.Category),
         tags: getMultiSelectNames(item.properties.Tags),
@@ -167,7 +166,7 @@ export const getBlogPosts = async (options = {}) => {
 };
 
 export const getProjects = async (options = {}) => {
-    return getPublishedItems(process.env.NOTION_PROJECT_DATABASE_ID, (item) => ({
+    return getPublishedItems(import.meta.env.NOTION_PROJECT_DATABASE_ID, (item) => ({
         date: getDateStr(item.properties['Completion Date']),
         industry: getSelectName(item.properties.Industry),
         techStack: getMultiSelectNames(item.properties['Tech Stack']),
@@ -177,7 +176,7 @@ export const getProjects = async (options = {}) => {
 };
 
 export const getDigitalProducts = async (options = {}) => {
-    return getPublishedItems(process.env.NOTION_PRODUCT_DATABASE_ID, (item) => ({
+    return getPublishedItems(import.meta.env.NOTION_PRODUCT_DATABASE_ID, (item) => ({
         price: getNumber(item.properties.Price),
         discountPrice: getNumber(item.properties['Discount Price']),
         productType: getSelectName(item.properties['Product Type']),
@@ -189,7 +188,7 @@ export const getDigitalProducts = async (options = {}) => {
 };
 
 // Generic Fetch Single Item Details (for dynamic routes)
-export const getItemDetails = cache(async (slug, databaseId) => {
+export const getItemDetails = async (slug, databaseId) => {
     if (!databaseId) return null;
     try {
         const response = await notion.databases.query({
@@ -222,4 +221,4 @@ export const getItemDetails = cache(async (slug, databaseId) => {
         console.error(`Error fetching details for slug ${slug}:`, error);
         return null;
     }
-});
+};
