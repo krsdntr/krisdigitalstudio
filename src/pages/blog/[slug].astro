@@ -12,7 +12,7 @@ const { slug } = Astro.params;
 
 const allPosts = await getBlogPosts();
 const postMeta = allPosts.items.find((p: any) => p.slug === slug);
-const postContent = await getItemDetails(slug as string, process.env.NOTION_BLOG_DATABASE_ID);
+const postContent = await getItemDetails(slug as string, import.meta.env.NOTION_BLOG_DATABASE_ID);
 const styles = await getSystemStyles();
 
 if (!postMeta || !postContent) {

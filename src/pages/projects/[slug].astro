@@ -12,7 +12,7 @@ const { slug } = Astro.params;
 
 const allProjects = await getProjects();
 const projectMeta = allProjects.items.find((p: any) => p.slug === slug);
-const projectContent = await getItemDetails(slug as string, process.env.NOTION_PROJECT_DATABASE_ID);
+const projectContent = await getItemDetails(slug as string, import.meta.env.NOTION_PROJECT_DATABASE_ID);
 const styles = await getSystemStyles();
 
 if (!projectMeta || !projectContent) {
