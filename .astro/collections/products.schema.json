@@ -26,8 +26,7 @@
           }
         },
         "checkoutUrl": {
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         },
         "isFreebie": {
           "type": "boolean"

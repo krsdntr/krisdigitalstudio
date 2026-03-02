@@ -8,7 +8,27 @@
           "type": "string"
         },
         "date": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "integer",
+                  "format": "unix-time"
+                }
+              ]
+            }
+          ]
         },
         "industry": {
           "type": "string"
@@ -20,8 +40,7 @@
           }
         },
         "liveUrl": {
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         },
         "description": {
           "type": "string"
