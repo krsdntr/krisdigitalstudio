@@ -1,14 +1,14 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
-    storage: {
-        kind: 'local',
-    },
+    storage: import.meta.env?.DEV
+        ? { kind: 'local' }
+        : { kind: 'github', repo: 'krsdntr/krisdigitalstudio' },
     collections: {
         blog: collection({
             label: 'Blog Posts',
             slugField: 'title',
-            path: 'src/content/blog/*/',
+            path: 'src/content/blog/*',
             format: { contentField: 'content' },
             schema: {
                 title: fields.slug({ name: { label: 'Title' } }),
@@ -34,13 +34,13 @@ export default config({
                     directory: 'src/assets/images/blog',
                     publicPath: '../../assets/images/blog/',
                 }),
-                content: fields.markdoc({ label: 'Content' }),
+                content: fields.markdoc({ label: 'Content', extension: 'md' }),
             },
         }),
         projects: collection({
             label: 'Projects',
             slugField: 'title',
-            path: 'src/content/projects/*/',
+            path: 'src/content/projects/*',
             format: { contentField: 'content' },
             schema: {
                 title: fields.slug({ name: { label: 'Title' } }),
@@ -57,13 +57,13 @@ export default config({
                     directory: 'src/assets/images/projects',
                     publicPath: '../../assets/images/projects/',
                 }),
-                content: fields.markdoc({ label: 'Content' }),
+                content: fields.markdoc({ label: 'Content', extension: 'md' }),
             },
         }),
         products: collection({
             label: 'Digital Products',
             slugField: 'title',
-            path: 'src/content/products/*/',
+            path: 'src/content/products/*',
             format: { contentField: 'content' },
             schema: {
                 title: fields.slug({ name: { label: 'Title' } }),
@@ -91,13 +91,13 @@ export default config({
                     directory: 'src/assets/images/products',
                     publicPath: '../../assets/images/products/',
                 }),
-                content: fields.markdoc({ label: 'Content' }),
+                content: fields.markdoc({ label: 'Content', extension: 'md' }),
             },
         }),
         blocks: collection({
             label: 'Landing Page Blocks',
             slugField: 'name',
-            path: 'src/content/blocks/*/',
+            path: 'src/content/blocks/*',
             format: { data: 'json' },
             schema: {
                 name: fields.slug({ name: { label: 'Internal Name (e.g., hero, faq)' } }),
