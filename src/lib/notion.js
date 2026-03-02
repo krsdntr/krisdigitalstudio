@@ -206,14 +206,19 @@ export const getItemDetails = async (slug, databaseId) => {
 
         const title = getPlainText(item.properties.Name || item.properties.Title || item.properties['Project Name'] || item.properties['Product Name']);
         const mdBlocks = await n2m.pageToMarkdown(item.id);
+        console.log(`[DEBUG] Fetched ${mdBlocks.length} blocks from Notion for page ${item.id} (slug: ${slug})`);
         const content = n2m.toMarkdownString(mdBlocks);
+        console.log(`[DEBUG] Raw n2m content type:`, typeof content);
+
+        let finalContent = typeof content === 'string' ? content : (content?.parent || '');
+        console.log(`[DEBUG] Final parsed content length: ${finalContent.length} chars (Snippet: ${finalContent.substring(0, 50).replace(/\n/g, '\\n')}...)`);
 
         // Provide a generic object that pages can interpret
         return {
             rawItem: item, // In case page needs specific properties
             id: item.id,
             title,
-            content: typeof content === 'string' ? content : (content?.parent || ''),
+            content: finalContent,
             cover: getCoverUrl(item) || getFileUrl(item.properties.Thumbnail),
             slug
         };

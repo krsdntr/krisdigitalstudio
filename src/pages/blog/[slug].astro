@@ -16,9 +16,11 @@ const postContent = await getItemDetails(slug as string, import.meta.env.NOTION_
 const styles = await getSystemStyles();
 
 if (!postMeta || !postContent) {
+    console.log(`[DEBUG Astro] /blog/${slug} returning 404. Meta: ${!!postMeta}, Content: ${!!postContent}`);
     return Astro.redirect('/404');
 }
 
+console.log(`[DEBUG Astro] Ready to render /blog/${slug}. Content length: ${postContent.content ? postContent.content.length : 0}`);
 const post = { ...postMeta, content: postContent.content };
 ---
 
