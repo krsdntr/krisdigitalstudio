@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const styles = await getSystemStyles();
-const product = { ...entry.data, slug: entry.id };
+const product = { ...entry.data, slug: entry.id, cover: entry.data.cover?.src || entry.data.cover };
 const { Content } = await render(entry);
 
 const priceLabel = styles.product_price_label?.value || "Harga Pembelian Sekali Bayar";
@@ -151,6 +151,6 @@ const secureText = styles.product_secure_text?.value || "Pembayaran Diproses Sec
                 </div>
             </article>
         </main>
-        <Footer />
+        <Footer styles={styles} />
     </div>
 </Layout>

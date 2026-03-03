@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const styles = await getSystemStyles();
-const project = { ...entry.data, slug: entry.id };
+const project = { ...entry.data, slug: entry.id, cover: entry.data.cover?.src || entry.data.cover };
 const { Content } = await render(entry);
 ---
 
@@ -105,6 +105,6 @@ const { Content } = await render(entry);
                 </div>
             </article>
         </main>
-        <Footer />
+        <Footer styles={styles} />
     </div>
 </Layout>
