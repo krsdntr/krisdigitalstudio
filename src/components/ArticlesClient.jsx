@@ -125,9 +125,9 @@ export default function ArticlesClient({ initialPosts }) {
 
                             <a href={`/blog/${post.slug}`} className="relative h-56 bg-slate-100 w-full overflow-hidden block group/image border-b border-gray-100 p-4">
                                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white border border-black/5 transform transition-transform duration-500 group-hover:scale-[1.02]">
-                                    {post.cover ? (
+                                    {post.cover || post.coverUrl ? (
                                         <img
-                                            src={post.cover}
+                                            src={post.cover || post.coverUrl}
                                             alt={post.title}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />

@@ -16,7 +16,15 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const styles = await getSystemStyles();
-const project = { ...entry.data, slug: entry.id, cover: entry.data.cover?.src || entry.data.cover };
+const screenshotApiUrl = entry.data.liveUrl 
+    ? `https://s.wordpress.com/mshots/v1/${encodeURIComponent(entry.data.liveUrl)}?w=1200` 
+    : null;
+
+const project = { 
+    ...entry.data, 
+    slug: entry.id, 
+    cover: entry.data.cover?.src || entry.data.cover || entry.data.coverUrl || screenshotApiUrl 
+};
 const { Content } = await render(entry);
 ---
 

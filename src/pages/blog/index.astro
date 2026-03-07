@@ -10,7 +10,7 @@ import { getCollection } from 'astro:content';
 const styles = await getSystemStyles();
 const allPosts = await getCollection('blog');
 allPosts.sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
-const posts = { items: allPosts.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover })), nextCursor: null, hasMore: false };
+const posts = { items: allPosts.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover, coverUrl: p.data.coverUrl })), nextCursor: null, hasMore: false };
 const blocks = await getLandingBlocks();
 const articlesBlock = blocks.find((b: { componentName: string }) => b.componentName === 'Articles');
 const title = articlesBlock?.title || 'Blog & Insight';

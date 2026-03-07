@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const styles = await getSystemStyles();
-const post = { ...entry.data, slug: entry.id, cover: entry.data.cover?.src || entry.data.cover };
+const post = { ...entry.data, slug: entry.id, cover: entry.data.cover?.src || entry.data.cover || entry.data.coverUrl };
 const { Content } = await render(entry);
 ---
 

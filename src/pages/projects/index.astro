@@ -10,7 +10,7 @@ import { getCollection } from 'astro:content';
 const styles = await getSystemStyles();
 const allProjects = await getCollection('projects');
 allProjects.sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
-const projects = { items: allProjects.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover })), nextCursor: null, hasMore: false };
+const projects = { items: allProjects.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover, coverUrl: p.data.coverUrl })), nextCursor: null, hasMore: false };
 const blocks = await getLandingBlocks();
 const projectsBlock = blocks.find((b: { componentName: string }) => b.componentName === 'Projects');
 const title = projectsBlock?.title || 'Karya & Project Kami';

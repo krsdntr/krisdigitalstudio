@@ -13,7 +13,7 @@ export async function GET({ request }) {
         allItems.sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
 
         const sliced = allItems.slice(cursor, cursor + PAGE_SIZE);
-        const mapped = sliced.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover }));
+        const mapped = sliced.map(p => ({ id: p.id, slug: p.id, ...p.data, cover: p.data.cover?.src || p.data.cover, coverUrl: p.data.coverUrl }));
 
         const nextCursor = cursor + PAGE_SIZE;
         const hasMore = nextCursor < allItems.length;
